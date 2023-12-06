@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
   const [activedLink, setActivedLink] = useState(hoverLink);
 
   const classes = styleLayout(currentPath, activedLink);
-
+  console.log("development branch was created")
   const handleLinks = (event) => {
     const id = event.target.id;
 
