@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { capitalizeText } from "../../utils/Capitalize";
 import { arrPaths } from "../../constants/menuPaths";
 import useHoverLink from "../../hooks/useHoverLink";
+import "./styles/index.css"
 
 /* Layout + Canvas three js? */
 const Layout = ({ children }) => {
