@@ -10,20 +10,23 @@ import { useLocation } from "react-router-dom";
 import { capitalizeText } from "../../utils/Capitalize";
 import { arrPaths } from "../../constants/menuPaths";
 import useHoverLink from "../../hooks/useHoverLink";
-import "./styles/index.css"
+import "./styles/index.css";
+import CursorPro from "../CursorPro/CursorPro";
+import useCursorEvents from "../../hooks/useCursorEvents";
 
 /* Layout + Canvas three js? */
 const Layout = ({ children }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const { hoverLink } = useHoverLink();
+  const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
   const [onHover, setOnHover] = useState(false);
   const [onHoverId, setOnHoverId] = useState(null);
   const [activedLink, setActivedLink] = useState(hoverLink);
 
   const classes = styleLayout(currentPath, activedLink);
-  console.log("development branch was created")
+
   const handleLinks = (event) => {
     const id = event.target.id;
 
@@ -32,13 +35,14 @@ const Layout = ({ children }) => {
     const srtLink = JSON.stringify(id);
     window.sessionStorage.setItem("hoverLink", srtLink);
 
-    setActivedLink(event.target.id);
+    setActivedLink(id);
   };
 
   const handleMouseEnter = (event) => {
     if (!onHover) {
       setOnHover(true);
       setOnHoverId(event.target.id);
+      setOnHoverEvent();
     }
   };
 
@@ -46,6 +50,7 @@ const Layout = ({ children }) => {
     if (onHover) {
       setOnHoverId(null);
       setOnHover(false);
+      removeOnHoverEvent();
     }
   };
 
@@ -55,7 +60,6 @@ const Layout = ({ children }) => {
         <Box style={classes.containerLinks}>
           {arrPaths.map((arrPath, index) => (
             <Box key={index} style={classes.containerLink}>
-              
               <div style={classes.containerHoverLink}>
                 {onHover && (
                   <div
@@ -79,6 +83,7 @@ const Layout = ({ children }) => {
           ))}
         </Box>
       </Box>
+      <CursorPro />
       {children}
     </Box>
   );
