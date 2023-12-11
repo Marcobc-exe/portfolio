@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const { hoverLink } = useHoverLink();
-  const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
+  const { setOnHoverEvent, removeOnHoverEvent, setSelectedEvent } = useCursorEvents();
 
   const [onHover, setOnHover] = useState(false);
   const [onHoverId, setOnHoverId] = useState(null);
@@ -36,6 +36,7 @@ const Layout = ({ children }) => {
     window.sessionStorage.setItem("hoverLink", srtLink);
 
     setActivedLink(id);
+    setSelectedEvent(id);
   };
 
   const handleMouseEnter = (event) => {

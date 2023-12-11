@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { useSelector } from "react-redux";
 
 const CursorPro = () => {
   const cursorRef = useRef(null);
-  const { event } = useSelector((state) => state.cursor);
+  const { event, selected } = useSelector((state) => state.cursor);
+  const [eventSelected, setEventSelected] = useState("");
 
   useEffect(() => {
     const cursorDot = cursorRef.current;
@@ -12,10 +13,17 @@ const CursorPro = () => {
     const mouseMove = (e) => {
       const posX = e.clientX;
       const posY = e.clientY;
+      const linkId = e.target.id;
 
       if (cursorDot) {
         cursorDot.style.left = `${posX}px`;
         cursorDot.style.top = `${posY}px`;
+      }
+
+      if (linkId === selected) {
+        setEventSelected("onSelected")
+      } else {
+        setEventSelected("")
       }
     };
 
@@ -26,7 +34,7 @@ const CursorPro = () => {
     };
   }, [cursorRef]);
 
-  return <div className={`cursor-dot ${event}`} ref={cursorRef} />;
+  return <div className={`cursor-dot ${event} ${eventSelected}`} ref={cursorRef} />;
 };
 
 export default CursorPro;

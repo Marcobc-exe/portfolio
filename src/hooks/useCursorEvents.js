@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { handleOnHoverEvent } from "../store/slices/cursor";
+import { handleOnHoverEvent, handleSelectedEvent } from "../store/slices/cursor";
 
 const useCursorEvents = () => {
   const dispatch = useDispatch();
@@ -12,9 +12,14 @@ const useCursorEvents = () => {
     dispatch(handleOnHoverEvent(""));
   };
 
+  const setSelectedEvent = (id) => {
+    dispatch(handleSelectedEvent(id));
+  };
+
   return {
     setOnHoverEvent,
     removeOnHoverEvent,
+    setSelectedEvent,
   }
 }
 

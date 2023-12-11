@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   event: "",
+  selected: "",
 };
 
 export const cursorSlice = createSlice({
@@ -11,8 +12,11 @@ export const cursorSlice = createSlice({
     handleOnHoverEvent: (state, { payload }) => {
       state.event = payload;
     },
+    handleSelectedEvent: (state, { payload }) => {
+      state.selected = payload;
+    }
   },
 });
 
-export const { handleOnHoverEvent } = cursorSlice.actions;
+export const { handleOnHoverEvent, handleSelectedEvent } = cursorSlice.actions;
 export default cursorSlice.reducer;
