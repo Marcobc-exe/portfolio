@@ -32,7 +32,7 @@ const CursorPro = () => {
     return () => {
       window.removeEventListener("mousemove", mouseMove);
     };
-  }, [cursorRef]);
+  }, [cursorRef, selected]);
 
   return <div className={`cursor-dot ${event} ${eventSelected}`} ref={cursorRef} />;
 };
