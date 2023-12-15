@@ -1,8 +1,19 @@
 import { Box } from "@mui/material";
-import { styleBoxContainer } from "./styles/style";
+import { styleHomePage } from "./styles/style";
+import useCursorEvents from "../../hooks/useCursorEvents";
+import "./styles/index.css"
 
 const HomePage = () => {
-  const classes = styleBoxContainer();
+  const classes = styleHomePage();
+  const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
+
+  const handleMouseEnter = (e) => {
+    setOnHoverEvent(e.target.id);
+  };
+
+  const handleMouseLeave = () => {
+    removeOnHoverEvent();
+  };
 
   return (
     <Box style={classes.containerTitle}>
@@ -16,7 +27,21 @@ const HomePage = () => {
         </Box>
 
         <Box style={classes.boxCompany}>
-          <span>Currently working at Agrosat International</span>
+          <span>
+            Currently working at{" "}
+            <a
+              id="linkCompany"
+              style={classes.linkCompany}
+              className={"linkCompany"}
+              href="https://www.agrosat.cl/"
+              target="_blank"
+              rel="noreferrer"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Agrosat International
+            </a>
+          </span>
         </Box>
       </Box>
     </Box>

@@ -1,4 +1,4 @@
-const styleBoxContainer = () => {
+const styleHomePage = () => {
   return {
     containerTitle: {
       // backgroundColor: "green",
@@ -51,8 +51,14 @@ const styleBoxContainer = () => {
     },
     boxCompany: {
       // backgroundColor: "blue",
+    },
+    linkCompany:{
+      textDecoration: "none",
+      color: "#d9d9d9",
+      fontFamily: "Neue Montreal Thin",
+      cursor: "none"
     }
   }
 }
 
-export { styleBoxContainer };
+export { styleHomePage };

@@ -43,11 +43,11 @@ const styleLink = (id, activedLink) => {
     return {
       background: "linear-gradient(to right, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9)",
       backgroundSize: "100% 0.1em, 0 0.2em",
-      backgroundPosition: "50% 55%",
+      backgroundPosition: "0% 55%",
       backgroundRepeat: "no-repeat",
       transition: "backgroundSize 300ms",
       animationName: "lineThrough",
-      animationDuration: ".15s"
+      animationDuration: ".3s"
     };
   }
 };

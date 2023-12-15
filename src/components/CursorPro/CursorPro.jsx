@@ -21,9 +21,10 @@ const CursorPro = () => {
       }
 
       if (linkId === selected) {
-        setEventSelected("onSelected")
+        setEventSelected("onSelected");
+        return
       } else {
-        setEventSelected("")
+        setEventSelected("");
       }
     };
 
@@ -34,7 +35,9 @@ const CursorPro = () => {
     };
   }, [cursorRef, selected]);
 
-  return <div className={`cursor-dot ${event} ${eventSelected}`} ref={cursorRef} />;
+  return (
+    <div className={`cursor-dot ${event} ${eventSelected}`} ref={cursorRef} />
+  );
 };
 
 export default CursorPro;
