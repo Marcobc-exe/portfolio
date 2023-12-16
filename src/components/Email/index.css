@@ -6,9 +6,13 @@
   font-size: 13px;
   position: absolute;
   right: 0;
-  margin-right: 50px;
+  margin-right: 30px;
   letter-spacing: 1px;
   font-family: Neue Montreal Book;
+}
+
+.txtEmail {
+  font-family: Neue Montreal Medium;
 }
 
 .txtEmail:hover {

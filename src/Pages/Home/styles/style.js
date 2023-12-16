@@ -32,7 +32,7 @@ const styleHomePage = () => {
     },
     boxSubtitle: {
       // backgroundColor: "#222",
-      width: "300px",
+      width: "310px",
       height: "60px",
       display: "flex",
       flexDirection: "column",
@@ -55,8 +55,9 @@ const styleHomePage = () => {
     linkCompany:{
       textDecoration: "none",
       color: "#d9d9d9",
-      fontFamily: "Neue Montreal Thin",
-      cursor: "none"
+      fontFamily: "Neue Montreal Medium",
+      cursor: "none",
+      fontWeight: "bold"
     }
   }
 }
