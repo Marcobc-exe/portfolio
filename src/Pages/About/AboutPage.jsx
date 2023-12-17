@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import "./styles/index.css";
 
 const AboutPage = () => {
+  console.log("testing...");
   return (
     <Box className={"containerAbout"}>
       
