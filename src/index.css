@@ -1,5 +1,35 @@
+@font-face {
+  font-family: Neue Montreal Bold;
+  src: url("./font/PPNeueMontreal-Bold.otf");
+}
+
+@font-face {
+  font-family: Neue Montreal Book;
+  src: url("./font/PPNeueMontreal-Book.otf");
+}
+
+@font-face {
+  font-family: Neue Montreal Italic;
+  src: url("./font/PPNeueMontreal-Italic.otf");
+}
+
+@font-face {
+  font-family: Neue Montreal Medium;
+  src: url("./font/PPNeueMontreal-Medium.otf");
+}
+
+@font-face {
+  font-family: Neue Montreal SemiBolditalic;
+  src: url("./font/PPNeueMontreal-SemiBolditalic.otf");
+}
+
+@font-face {
+  font-family: Neue Montreal Thin;
+  src: url("./font/PPNeueMontreal-Thin.otf");
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Neue Montreal Medium;
   line-height: 1.5;
 
   color-scheme: light dark;
@@ -11,12 +41,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background-color: #57606f;
+}
+
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  cursor: none;
 }
 
 /* @media (prefers-color-scheme: light) {

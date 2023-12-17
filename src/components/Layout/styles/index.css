@@ -1,0 +1,50 @@
+@keyframes appearCircle {
+  0% {
+    border: 1px solid rgba(217, 217, 217, .0);
+    opacity: 0;
+  }
+
+  15% {
+    border: 1px solid rgba(217, 217, 217, .15);
+    opacity: .15;
+  }
+
+  30% {
+    border: 1px solid rgba(217, 217, 217, .3);
+    opacity: .3;
+  }
+
+  50% {
+    border: 1px solid rgba(217, 217, 217, .5);
+    opacity: .5;
+  }
+
+  70% {
+    border: 1px solid rgba(217, 217, 217, .7);
+    opacity: .7;
+  }
+
+  85% {
+    border: 1px solid rgba(217, 217, 217, .85);
+    opacity: .85;
+  }
+
+  100% {
+    border: 1px solid rgba(217, 217, 217, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes lineThrough {
+  0% {
+    background-size: 0 0.1em, 0 0.1em;
+  }
+  
+  50% {
+    background-size: 50% 0.1em, 50% 0.1em;
+  }
+
+  100% {
+    background-size: 100% 0.1em, 100% 0.1em;
+  }
+}

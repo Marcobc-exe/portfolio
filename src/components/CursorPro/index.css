@@ -1,0 +1,220 @@
+.cursor-dot {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  box-shadow: 0px 0px 5px 3px #d9d9d9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  animation-name: cursorDefault;
+  animation-duration: .05s;
+}
+
+.cursor-dot.onHover,
+.cursor-dot.onHoverEmail,
+.cursor-dot.onHoverCompany {
+  animation-name: cursorOnHover;
+  animation-duration: .05s;
+  width: 12px;
+  height: 12px;
+  box-shadow: 0px 0px 8px 7px #f1c40f;
+}
+
+.cursor-dot.onHover.onSelected {
+  background-color: #d9d9d9;
+  animation-name: cursorOnSelected;
+  animation-duration: .05s;
+}
+
+@keyframes cursorDefault {
+  0% {
+    width: 12px;
+    height: 12px;
+  }
+
+  15% {
+    width: 13px;
+    height: 13px;
+  }
+
+  25% {
+    width: 14px;
+    height: 14px;
+  }
+
+  40% {
+    width: 15px;
+    height: 15px;
+  }
+
+  50% {
+    width: 16px;
+    height: 16px;
+  }
+
+  65% {
+    width: 17px;
+    height: 17px;
+  }
+
+  75% {
+    width: 18px;
+    height: 18px;
+  }
+
+  85% {
+    width: 19px;
+    height: 19px;
+  }
+
+  100% {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@keyframes cursorOnHover {
+  0% {
+    width: 20px;
+    height: 20px;
+    box-shadow: 0px 0px 5px 3px rgba(241, 196, 15, .1);
+  }
+
+  15% {
+    width: 19px;
+    height: 19px;
+    box-shadow: 0px 0px 5px 4px rgba(241, 196, 15, .2);
+  }
+
+  25% {
+    width: 18px;
+    height: 18px;
+    box-shadow: 0px 0px 5px 4px rgba(241, 196, 15, .3);
+  }
+
+  40% {
+    width: 17px;
+    height: 17px;
+    box-shadow: 0px 0px 5px 4px rgba(241, 196, 15, .4);
+  }
+
+  50% {
+    width: 16px;
+    height: 16px;
+    box-shadow: 0px 0px 6px 4px rgba(241, 196, 15, .5);
+  }
+
+  65% {
+    width: 15px;
+    height: 15px;
+    box-shadow: 0px 0px 7px 5px rgba(241, 196, 15, .6);
+  }
+
+  75% {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0px 0px 7px 6px rgba(241, 196, 15, .7);
+  }
+
+  85% {
+    width: 13px;
+    height: 13px;
+    box-shadow: 0px 0px 8px 6px rgba(241, 196, 15, .8);
+  }
+
+  100% {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0px 0px 8px 7px rgba(241, 196, 15, 1);
+  }
+}
+
+@keyframes cursorOnSelected {
+  0% {
+    background-color: rgba(36, 36, 36, 1);
+  }
+
+  5% {
+    background-color: rgba(36, 36, 36, .9);
+  }
+
+  10% {
+    background-color: rgba(36, 36, 36, .8);
+  }
+
+  15% {
+    background-color: rgba(36, 36, 36, .7);
+  }
+
+  20% {
+    background-color: rgba(36, 36, 36, .6);
+  }
+
+  25% {
+    background-color: rgba(36, 36, 36, .5);
+  }
+
+  30% {
+    background-color: rgba(36, 36, 36, .4);
+  }
+
+  35% {
+    background-color: rgba(36, 36, 36, .3);
+  }
+
+  40% {
+    background-color: rgba(36, 36, 36, .2);
+  }
+
+  45% {
+    background-color: rgba(36, 36, 36, .1);
+  }
+
+  50% {
+    background-color: rgba(36, 36, 36, 0);
+  }
+
+  55% {
+    background-color: rgba(36, 36, 36, 0);
+  }
+
+  60% {
+    background-color: rgba(255, 255, 255, .1);
+  }
+
+  65% {
+    background-color: rgba(255, 255, 255, .2);
+  }
+
+  70% {
+    background-color: rgba(255, 255, 255, .3);
+  }
+
+  75% {
+    background-color: rgba(255, 255, 255, .4);
+  }
+
+  80% {
+    background-color: rgba(255, 255, 255, .5);
+  }
+
+  85% {
+    background-color: rgba(255, 255, 255, .6);
+  }
+
+  90% {
+    background-color: rgba(255, 255, 255, .7);
+  }
+
+  95% {
+    background-color: rgba(255, 255, 255, .8);
+  }
+
+  100% {
+    background-color: rgba(255, 255, 255, .9);
+  }
+}

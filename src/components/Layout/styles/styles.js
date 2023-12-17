@@ -39,9 +39,17 @@ const styleLayout = () => {
 };
 
 const styleLink = (id, activedLink) => {
-  return {
-    textDecoration: id === activedLink ? "line-through" : "none",
-  };
+  if (id === activedLink ) {
+    return {
+      background: "linear-gradient(to right, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9)",
+      backgroundSize: "100% 0.1em, 0 0.2em",
+      backgroundPosition: "0% 55%",
+      backgroundRepeat: "no-repeat",
+      transition: "backgroundSize 300ms",
+      animationName: "lineThrough",
+      animationDuration: ".3s"
+    };
+  }
 };
 
 const styleHoverLink = (id, onHoverId, activedLink) => {
@@ -56,6 +64,8 @@ const styleHoverLink = (id, onHoverId, activedLink) => {
       left: "50%",
       top: "50%",
       transform: "translate(-50%, -50%)",
+      animationName: "appearCircle",
+      animationDuration: ".3s",
     };
   }
 };
@@ -67,6 +77,7 @@ const StyledLink = styled(Link)`
   color: #d9d9d9;
   font-weight: 500;
   letter-spacing: 1px;
+  cursor: none;
 `;
 
 export { styleLayout, styleLink, styleHoverLink, StyledLink };
