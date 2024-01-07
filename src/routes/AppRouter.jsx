@@ -4,6 +4,7 @@ import HomePage from "../Pages/Home/HomePage";
 import Layout from "../components/Layout/Layout";
 import ContactPage from "../Pages/Contact/ContactPage";
 import AboutPage from "../Pages/About/AboutPage";
+import WorkPage from "../Pages/Work/WorkPage";
 
 const AppRouter = () => {
   return (
@@ -11,7 +12,7 @@ const AppRouter = () => {
       <Layout>
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          <Route exact path="/work" element={<h1>Work</h1>} />
+          <Route exact path="/work" element={<WorkPage />} />
           <Route exact path="/about" element={<AboutPage />} />
           <Route exact path="/contact" element={<ContactPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />

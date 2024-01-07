@@ -4,19 +4,23 @@ import { Link } from "react-router-dom";
 const styleLayout = () => {
   return {
     layout: {
-      border: "1px solid #d9d9d9",
+      border: "1px solid rgba(217, 217, 217, .4)",
       margin: 35,
       display: "flex",
       placeItems: "center",
       minWidth: "calc(100vw - 72px)",
       minHeight: "calc(100vh - 72px)",
+      // overflow: "hidden",
+      // backgroundColor: "yellow",
     },
     containerNavbar: {
       position: "absolute",
+      // backgroundColor: "green",
       bottom: 0,
       marginBottom: 70,
       height: "120px",
       width: "120px",
+      zIndex: 1,
     },
     containerLinks: {
       margin: 10,

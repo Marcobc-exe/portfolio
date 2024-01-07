@@ -18,6 +18,7 @@ const styleContactPage = () => {
       justifyContent: "center",
       height: "52px",
       fontFamily: "Neue Montreal Medium",
+      fontSize: "20px"
     },
     txtTitleContact:{
       marginBottom: "8px",

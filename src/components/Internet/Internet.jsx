@@ -32,7 +32,7 @@ export const Internet = ({ classes }) => {
           LinkedIn
         </a>
       </span>
-
+      /
       <span
         id="internet"
         className="txtInternet"
