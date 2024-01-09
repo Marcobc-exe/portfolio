@@ -6,15 +6,18 @@ import "./index.css"
 
 export const Email = ({ classes }) => {
   const [isCopyEmail, setIsCopyEmail] = useState(false);
+  const [isHoverEmail, setIsHoverEmail] = useState(false);
   // const { event } = useSelector((state) => state.cursor);
   const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
   const handleMouseEnter = (e) => {
     setOnHoverEvent(e.target.id);
+    if (!isCopyEmail) setIsHoverEmail(true);
   };
 
   const handleMouseLeave = () => {
     removeOnHoverEvent();
+    setIsHoverEmail(false);
   };
 
   const copyEmail = (event) => {
@@ -27,6 +30,8 @@ export const Email = ({ classes }) => {
     document.body.removeChild(input);
 
     setIsCopyEmail(true);
+
+    if (isHoverEmail) setIsHoverEmail(false)
   };
 
   useEffect(() => {
@@ -51,6 +56,7 @@ export const Email = ({ classes }) => {
         marco.developing@gmail.com
       </span>
       {isCopyEmail && <span className={"txtCopied"}>Copied!</span>}
+      {isHoverEmail && <span className={"txtCopy"}>Copy?</span>}
     </Box>
   );
 };
