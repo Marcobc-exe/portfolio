@@ -37,7 +37,7 @@ const WorkPage = () => {
       </Link>
       <Link
         className="containerLkProyect"
-        href="https://p5aholic.me/projects/"
+        // href="https://p5aholic.me/projects/"
         underline="none"
         target="_blank"
         rel="noreferrer"
