@@ -16,8 +16,8 @@ import sunFragment from './shaders/sunFragment.glsl'
 const Canvas3D = () => {
   // const { x, y, z } = useSelector((state) => state.camera);
   // const planet0Texture = useLoader(TextureLoader, "./src/assets/planet0.jpeg");
-  const earthTexture = useLoader(TextureLoader, "./src/assets/2k_earth_daymap.jpg")
-  // const earthTexture = useLoader(TextureLoader, "./2k_earth_daymap.jpg") // portfolio path
+  // const earthTexture = useLoader(TextureLoader, "./src/assets/2k_earth_daymap.jpg")
+  const earthTexture = useLoader(TextureLoader, "./2k_earth_daymap.jpg") // portfolio path
 
   return (
     <Canvas

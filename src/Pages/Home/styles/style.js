@@ -8,11 +8,8 @@ const styleHomePage = () => {
       bottom: 0,
       marginRight: 120,
       marginBottom: 70,
-      height: "134px",
+      height: "114px",
       width: "310px",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-evenly",
     },
     boxFullName: {
       // backgroundColor: "blue",
@@ -27,7 +24,7 @@ const styleHomePage = () => {
       padding: 0,
       margin: 0,
       letterSpacing: "2px",
-      fontSize: "20px",
+      fontSize: "24px",
       fontFamily: "Neue Montreal Book",
     },
     boxSubtitle: {

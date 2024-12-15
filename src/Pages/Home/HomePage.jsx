@@ -1,19 +1,19 @@
 import { Box } from "@mui/material";
 import { styleHomePage } from "./styles/style";
-import useCursorEvents from "../../hooks/useCursorEvents";
+// import useCursorEvents from "../../hooks/useCursorEvents";
 import "./styles/index.css"
 
 const HomePage = () => {
   const classes = styleHomePage();
-  const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
+  // const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
-  const handleMouseEnter = (e) => {
-    setOnHoverEvent(e.target.id);
-  };
+  // const handleMouseEnter = (e) => {
+  //   setOnHoverEvent(e.target.id);
+  // };
 
-  const handleMouseLeave = () => {
-    removeOnHoverEvent();
-  };
+  // const handleMouseLeave = () => {
+  //   removeOnHoverEvent();
+  // };
 
   return (
     <Box style={classes.containerTitle}>
@@ -26,7 +26,7 @@ const HomePage = () => {
           <span>React Front-end Developer Semi-Senior</span>
         </Box>
 
-        <Box style={classes.boxCompany}>
+        {/* <Box style={classes.boxCompany}>
           <span>
             Currently working at{" "}
             <a
@@ -42,7 +42,7 @@ const HomePage = () => {
               Agrosat International
             </a>
           </span>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
