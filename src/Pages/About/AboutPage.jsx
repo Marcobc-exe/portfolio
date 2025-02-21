@@ -16,7 +16,7 @@ const AboutPage = () => {
         <Box className={"pro-description"}>
           <span>
             {
-              "Functional and responsive software developer. Creativity and resilience to design solutions for every problem."
+              "Passionate developer about building high-performance web applications. Creativity and resilience to design solutions for every problem."
             }
           </span>
         </Box>
@@ -27,9 +27,6 @@ const AboutPage = () => {
               "Motivation is only the first step, discipline is the infinite ladder of life."
             }
           </span>
-          <span
-            className={"txtAuthor"}
-          >{`"Secret developer/calisthenics diary."`}</span>
         </Box>
       </Box>
     </Box>

@@ -33,7 +33,7 @@ const WorkPage = () => {
         onMouseLeave={() => handleMouseLeave()}
       >
         <span className="txtYearProyect">2023-07</span>
-        <span className="txtNameProyect">YourCrop Web Web site</span>
+        <span className="txtNameProyect">YourCrop</span>
       </Link>
       <Link
         className="containerLkProyect"

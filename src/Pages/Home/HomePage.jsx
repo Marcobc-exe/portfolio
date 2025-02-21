@@ -23,7 +23,7 @@ const HomePage = () => {
 
       <Box style={classes.boxSubtitle}>
         <Box style={classes.boxRole}>
-          <span>React Front-end Developer Semi-Senior</span>
+          <span>Semi-senior Front-end Developer</span>
         </Box>
 
         {/* <Box style={classes.boxCompany}>

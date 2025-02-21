@@ -21,7 +21,7 @@
 .containerBodyAbout {
   /* background-color: rebeccapurple; */
   width: 90%;
-  height: calc(100% - 126px);
+  height: calc(100% - 146px);
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -40,8 +40,7 @@
 
 .box-personal-desc {
   display: flex;
-  flex-direction: column
-  ;
+  flex-direction: column;
 }
 
 .txtAuthor {
