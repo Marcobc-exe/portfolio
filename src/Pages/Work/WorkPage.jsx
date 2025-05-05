@@ -25,15 +25,15 @@ const WorkPage = () => {
     <Box className="containerWorkPage">
       <Link
         className="containerLkProyect"
-        href="https://marcobc-exe.github.io/your-crop-app/"
+        href="https://marcobc-exe.github.io/smartHarvest/"
         underline="none"
         target="_blank"
         rel="noreferrer"
-        onMouseEnter={() => handleMouseEnter()}
+        onMouseEnter={(event) => handleMouseEnter(event)}
         onMouseLeave={() => handleMouseLeave()}
       >
-        <span className="txtYearProyect">2023-07</span>
-        <span className="txtNameProyect">YourCrop</span>
+        <span className="txtYearProyect">2025-04</span>
+        <span className="txtNameProyect">Smart Harvest</span>
       </Link>
       <Link
         className="containerLkProyect"
@@ -46,6 +46,18 @@ const WorkPage = () => {
       >
         <span className="txtYearProyect">2024-03</span>
         <span className="txtNameProyect">Memory Game</span>
+      </Link>
+      <Link
+        className="containerLkProyect"
+        href="https://marcobc-exe.github.io/your-crop-app/"
+        underline="none"
+        target="_blank"
+        rel="noreferrer"
+        onMouseEnter={() => handleMouseEnter()}
+        onMouseLeave={() => handleMouseLeave()}
+      >
+        <span className="txtYearProyect">2023-07</span>
+        <span className="txtNameProyect">YourCrop</span>
       </Link>
     </Box>
   );
