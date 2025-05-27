@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import "./styles/index.css";
+import { Box } from "@mui/material";
 
 const AboutPage = () => {
   return (
@@ -7,9 +7,7 @@ const AboutPage = () => {
       
       <Box className={"containerTitleAbout"}>
         <span>{"I'm Marco. "}</span>
-        <span>Front-end developer.</span>
-        <br />
-        <span>Calisthenics developer.</span>
+        <span>Freelance Front-end developer.</span>
       </Box>
 
       <Box className={"containerBodyAbout"}>
@@ -24,7 +22,7 @@ const AboutPage = () => {
         <Box className={"box-personal-desc"}>
           <span>
             {
-              "Motivation is only the first step, discipline is the infinite ladder of life."
+              `"Motivation is only the first step, discipline is the infinite ladder of life."`
             }
           </span>
         </Box>

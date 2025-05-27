@@ -40,6 +40,7 @@
 
 .box-personal-desc {
   display: flex;
+  font-weight: bold;
   flex-direction: column;
 }
 

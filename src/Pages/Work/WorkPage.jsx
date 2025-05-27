@@ -25,6 +25,18 @@ const WorkPage = () => {
     <Box className="containerWorkPage">
       <Link
         className="containerLkProyect"
+        href="https://www.fonel.ca/"
+        underline="none"
+        target="_blank"
+        rel="noreferrer"
+        onMouseEnter={(event) => handleMouseEnter(event)}
+        onMouseLeave={() => handleMouseLeave()}
+      >
+        <span className="txtYearProyect">2025-05</span>
+        <span className="txtNameProyect">Fonel Corp</span>
+      </Link>
+      <Link
+        className="containerLkProyect"
         href="https://marcobc-exe.github.io/smartHarvest/"
         underline="none"
         target="_blank"
