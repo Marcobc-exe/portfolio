@@ -35,7 +35,7 @@ const WorkPage = () => {
         <span className="txtYearProyect">2025-05</span>
         <span className="txtNameProyect">Fonel Corp</span>
       </Link>
-      <Link
+      {/* <Link
         className="containerLkProyect"
         href="https://marcobc-exe.github.io/smartHarvest/"
         underline="none"
@@ -46,7 +46,7 @@ const WorkPage = () => {
       >
         <span className="txtYearProyect">2025-04</span>
         <span className="txtNameProyect">Smart Harvest</span>
-      </Link>
+      </Link> */}
       <Link
         className="containerLkProyect"
         href="https://marcobc-exe.github.io/memory-game/"
