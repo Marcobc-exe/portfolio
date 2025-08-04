@@ -18,12 +18,12 @@ const HomePage = () => {
   return (
     <Box style={classes.containerTitle}>
       <Box style={classes.boxFullName}>
-        <span style={classes.txtFullName}>Marco Bravo C.</span>
+        <span style={classes.txtFullName}>Marco Bravo</span>
       </Box>
 
       <Box style={classes.boxSubtitle}>
         <Box style={classes.boxRole}>
-          <span>Semi-senior Front-end Developer</span>
+          <span>React Front-end Developer</span>
         </Box>
 
         {/* <Box style={classes.boxCompany}>
