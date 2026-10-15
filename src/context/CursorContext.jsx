@@ -1,13 +1,17 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
-import { readStoredHoverLink } from "../utils/hoverLink";
+import { useLocation } from "react-router-dom";
+import { arrPaths } from "../constants/menuPaths";
 
 const CursorContext = createContext(null);
 
 export const CursorProvider = ({ children }) => {
   const [event, setEvent] = useState("");
-  const [selected, setSelected] = useState(readStoredHoverLink);
+  const { pathname } = useLocation();
+
+  // The active link always follows the current route (direct URL, back/forward, clicks)
+  const selected =
+    arrPaths.find((arrPath) => arrPath.path === pathname)?.id ?? "home";
 
   const setOnHoverEvent = useCallback((element) => {
     if (element === "email") {
@@ -23,19 +27,14 @@ export const CursorProvider = ({ children }) => {
     setEvent("");
   }, []);
 
-  const setSelectedEvent = useCallback((id) => {
-    setSelected(id);
-  }, []);
-
   const value = useMemo(
     () => ({
       event,
       selected,
       setOnHoverEvent,
       removeOnHoverEvent,
-      setSelectedEvent,
     }),
-    [event, selected, setOnHoverEvent, removeOnHoverEvent, setSelectedEvent]
+    [event, selected, setOnHoverEvent, removeOnHoverEvent]
   );
 
   return (

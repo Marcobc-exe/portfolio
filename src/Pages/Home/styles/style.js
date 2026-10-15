@@ -53,7 +53,6 @@ const styleHomePage = () => {
       textDecoration: "none",
       color: "#d9d9d9",
       fontFamily: "Neue Montreal Medium",
-      cursor: "none",
       fontWeight: "bold"
     }
   }

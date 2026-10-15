@@ -81,7 +81,6 @@ const StyledLink = styled(Link)`
   color: #d9d9d9;
   font-weight: 500;
   letter-spacing: 1px;
-  cursor: none;
 `;
 
 export { styleLayout, styleLink, styleHoverLink, StyledLink };

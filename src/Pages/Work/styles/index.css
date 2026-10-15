@@ -24,7 +24,6 @@
 
 .containerLkProyect {
   height: 60px;
-  cursor: none;
   display: flex;
   gap: 12px;
 }

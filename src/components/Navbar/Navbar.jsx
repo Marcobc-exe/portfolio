@@ -5,22 +5,10 @@ import { arrPaths } from "../../constants/menuPaths";
 import { StyledLink, styleHoverLink, styleLink } from "../Layout/styles/styles";
 import { capitalizeText } from "../../utils/Capitalize";
 
-export const Navbar = ({ classes, activedLink, setActivedLink }) => {
+export const Navbar = ({ classes, activedLink }) => {
   const [onHover, setOnHover] = useState(false);
   const [onHoverId, setOnHoverId] = useState(null);
-  const { setOnHoverEvent, removeOnHoverEvent, setSelectedEvent } = useCursorEvents();
-
-  const handleLinks = (event) => {
-    const id = event.target.id;
-
-    if (activedLink === id) return;
-
-    const srtLink = JSON.stringify(id);
-    window.sessionStorage.setItem("hoverLink", srtLink);
-
-    setActivedLink(id);
-    setSelectedEvent(id);
-  };
+  const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
   const handleMouseEnter = (event) => {
     if (!onHover) {
@@ -55,7 +43,6 @@ export const Navbar = ({ classes, activedLink, setActivedLink }) => {
             <StyledLink
               id={arrPath.id}
               to={arrPath.path}
-              onClick={(event) => handleLinks(event)}
               onMouseEnter={(event) => handleMouseEnter(event)}
               onMouseLeave={() => handleMouseLeave()}
               style={styleLink(arrPath.id, activedLink)}

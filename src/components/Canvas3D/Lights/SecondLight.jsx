@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 const SecondLight = () => {
   return <ambientLight color={0xffffff} intensity={0.08} />;
 };

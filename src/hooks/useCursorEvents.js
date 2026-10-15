@@ -6,7 +6,6 @@ const useCursorEvents = () => {
     selected,
     setOnHoverEvent,
     removeOnHoverEvent,
-    setSelectedEvent,
   } = useCursor();
 
   return {
@@ -14,7 +13,6 @@ const useCursorEvents = () => {
     selected,
     setOnHoverEvent,
     removeOnHoverEvent,
-    setSelectedEvent,
   };
 };
 

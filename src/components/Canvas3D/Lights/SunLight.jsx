@@ -1,11 +1,8 @@
 /* eslint-disable react/no-unknown-property */
-import { useHelper } from "@react-three/drei";
 import { useRef } from "react";
-import { PointLightHelper } from "three";
 
 const SunLight = () => {
   const pointLightRef = useRef();
-  // useHelper(pointLightRef, PointLightHelper, 0.5, "white");
 
   return (
     <pointLight

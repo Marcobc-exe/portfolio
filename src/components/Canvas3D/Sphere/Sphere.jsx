@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 
 import { useFrame } from "@react-three/fiber";
@@ -6,12 +5,9 @@ import { useRef } from "react";
 
 const Sphere = ({
   position,
-  size,
+  args,
   scale,
-  texture = null,
   isSun,
-  metalness = undefined,
-  roughness = undefined,
   vertexShader = undefined,
   fragmentShader = undefined,
   blending = undefined,
@@ -20,7 +16,7 @@ const Sphere = ({
 }) => {
   const ref = useRef();
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (!isSun) {
       ref.current.rotation.y += 0.0005;
     }
@@ -28,14 +24,7 @@ const Sphere = ({
 
   return (
     <mesh ref={ref} position={position} scale={scale}>
-      <sphereGeometry args={size} />
-      {/* {uniforms === undefined && (
-        <meshStandardMaterial 
-          map={texture}
-          // metalness={metalness}
-          // roughness={roughness}
-        />
-      )} */}
+      <sphereGeometry args={args} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}

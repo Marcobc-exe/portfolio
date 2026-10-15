@@ -16,6 +16,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    // The project doesn't use prop-types
+    'react/prop-types': 'off',
     // "react/no-unknown-property": ["error", { ignore: ["jsx", "css"] }],
   },
 }
