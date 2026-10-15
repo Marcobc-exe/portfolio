@@ -22,11 +22,9 @@
     "@mui/x-date-pickers": "^6.18.3",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.12",
-    "@reduxjs/toolkit": "^2.0.1",
     "@types/three": "^0.160.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.0.3",
     "react-router-dom": "^6.20.1",
     "styled-components": "^6.1.1",
     "three": "^0.160.0"

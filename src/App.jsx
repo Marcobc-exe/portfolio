@@ -1,16 +1,15 @@
 import { HashRouter } from "react-router-dom";
 import AppRouter from "./routes/AppRouter";
-import { Provider } from "react-redux";
-import store from './store'
+import { CursorProvider } from "./context/CursorContext";
 
 const App = () => {
   return (
     <HashRouter>
-      <Provider store={store}>
+      <CursorProvider>
         <AppRouter />
-      </Provider>
+      </CursorProvider>
     </HashRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

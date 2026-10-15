@@ -1,13 +1,11 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
 import useCursorEvents from "../../hooks/useCursorEvents";
 import "./index.css"
 
 export const Email = ({ classes }) => {
   const [isCopyEmail, setIsCopyEmail] = useState(false);
   const [isHoverEmail, setIsHoverEmail] = useState(false);
-  // const { event } = useSelector((state) => state.cursor);
   const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
   const handleMouseEnter = (e) => {

@@ -1,22 +1,12 @@
-import useCursorEvents from "./useCursorEvents";
+import { readStoredHoverLink } from "../utils/hoverLink";
 
 /**
  * Handle last or first user's pathname
- * 
+ *
  * @returns {string} returns last user's pathname
  */
 const useHoverLink = () => {
-  const { setSelectedEvent } = useCursorEvents();
-  let hoverLink = JSON.stringify("home");
-  const isHoverLink = window.sessionStorage.getItem("hoverLink");
-
-  if (isHoverLink === null) {
-    window.sessionStorage.setItem("hoverLink", hoverLink);
-    setSelectedEvent(hoverLink);
-  } else {
-    hoverLink = JSON.parse(isHoverLink);
-    setSelectedEvent(hoverLink);
-  }
+  const hoverLink = readStoredHoverLink();
 
   return { hoverLink };
 };

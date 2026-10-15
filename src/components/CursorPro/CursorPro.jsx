@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
-import { useSelector } from "react-redux";
+import useCursorEvents from "../../hooks/useCursorEvents";
 
 const CursorPro = () => {
   const cursorRef = useRef(null);
-  const { event, selected } = useSelector((state) => state.cursor);
+  const { event, selected } = useCursorEvents();
   const [eventSelected, setEventSelected] = useState("");
 
   useEffect(() => {

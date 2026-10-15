@@ -1,32 +1,21 @@
-import { useDispatch } from "react-redux";
-import { handleOnHoverEvent, handleSelectedEvent } from "../store/slices/cursor";
+import { useCursor } from "../context/CursorContext";
 
 const useCursorEvents = () => {
-  const dispatch = useDispatch();
-
-  const setOnHoverEvent = (element) => {
-    if (element === "email") {
-      dispatch(handleOnHoverEvent("onHoverEmail"));
-    } else if (element === "linkCompany") {
-      dispatch(handleOnHoverEvent("onHoverCompany"));
-    } else {
-      dispatch(handleOnHoverEvent("onHover"));
-    }
-  };
-
-  const removeOnHoverEvent = () => {
-    dispatch(handleOnHoverEvent(""));
-  };
-
-  const setSelectedEvent = (id) => {
-    dispatch(handleSelectedEvent(id));
-  };
-
-  return {
+  const {
+    event,
+    selected,
     setOnHoverEvent,
     removeOnHoverEvent,
     setSelectedEvent,
-  }
-}
+  } = useCursor();
+
+  return {
+    event,
+    selected,
+    setOnHoverEvent,
+    removeOnHoverEvent,
+    setSelectedEvent,
+  };
+};
 
 export default useCursorEvents;

@@ -6,7 +6,6 @@ import { TextureLoader, AdditiveBlending, BackSide } from "three";
 import SunLight from "./Lights/SunLight";
 import { OrbitControls, Stars } from "@react-three/drei";
 import SecondLight from "./Lights/SecondLight";
-import { useSelector } from "react-redux";
 import earthVShaders from './shaders/vertex.glsl'
 import earthFShaders from './shaders/fragment.glsl'
 import earthAtmosphereVShaders from './shaders/atmosphereVertex.glsl'
@@ -14,7 +13,6 @@ import earthAtmosphereFShaders from './shaders/atmosphereFragment.glsl'
 import sunVertex from './shaders/sunVertex.glsl'
 import sunFragment from './shaders/sunFragment.glsl'
 const Canvas3D = () => {
-  // const { x, y, z } = useSelector((state) => state.camera);
   // const planet0Texture = useLoader(TextureLoader, "./src/assets/planet0.jpeg");
   // const earthTexture = useLoader(TextureLoader, "./src/assets/2k_earth_daymap.jpg")
   const earthTexture = useLoader(TextureLoader, "./2k_earth_daymap.jpg") // portfolio path
