@@ -6,8 +6,8 @@ import { github, linkedIn } from "../../constants/urls";
 export const Internet = ({ classes }) => {
   const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
-  const handleMouseEnter = (e) => {
-    setOnHoverEvent(e.target.id);
+  const handleMouseEnter = () => {
+    setOnHoverEvent();
   };
 
   const handleMouseLeave = () => {
@@ -18,7 +18,6 @@ export const Internet = ({ classes }) => {
     <Box style={classes.boxInternet}>
       <span>Internet:</span>
       <span
-        id="internet"
         className="txtInternet"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -34,7 +33,6 @@ export const Internet = ({ classes }) => {
       </span>
       /
       <span
-        id="internet"
         className="txtInternet"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

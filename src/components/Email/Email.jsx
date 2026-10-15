@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import useCursorEvents from "../../hooks/useCursorEvents";
 import "./index.css"
 
+const EMAIL = "marco.developing@gmail.com";
+
 export const Email = ({ classes }) => {
   const [isCopyEmail, setIsCopyEmail] = useState(false);
   const [isHoverEmail, setIsHoverEmail] = useState(false);
   const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
-  const handleMouseEnter = (e) => {
-    setOnHoverEvent(e.target.id);
+  const handleMouseEnter = () => {
+    setOnHoverEvent("email");
     if (!isCopyEmail) setIsHoverEmail(true);
   };
 
@@ -18,26 +20,26 @@ export const Email = ({ classes }) => {
     setIsHoverEmail(false);
   };
 
-  const copyEmail = (event) => {
-    const email = event.target.innerText;
-    let input = document.createElement("input");
-    input.setAttribute("value", email);
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand("copy");
-    document.body.removeChild(input);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch {
+      // Clipboard blocked or unavailable (e.g. non-HTTPS): leave the "Copy?" hint as is
+      return;
+    }
 
     setIsCopyEmail(true);
-
-    if (isHoverEmail) setIsHoverEmail(false)
+    setIsHoverEmail(false);
   };
 
   useEffect(() => {
-    if (isCopyEmail) {
-      setTimeout(() => {
-        setIsCopyEmail(false);
-      }, 2000);
-    }
+    if (!isCopyEmail) return;
+
+    const timeoutId = setTimeout(() => {
+      setIsCopyEmail(false);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
   }, [isCopyEmail]);
 
   return (
@@ -46,12 +48,11 @@ export const Email = ({ classes }) => {
       <span
         id="email"
         className="txtEmail"
-        value="marco.developing@gmail.com"
         onClick={copyEmail}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        marco.developing@gmail.com
+        {EMAIL}
       </span>
       {isCopyEmail && <span className={"txtCopied"}>Copied!</span>}
       {isHoverEmail && <span className={"txtCopy"}>Copy?</span>}

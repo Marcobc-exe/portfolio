@@ -34,7 +34,6 @@ export const Navbar = ({ classes, activedLink }) => {
             <div style={classes.containerHoverLink}>
               {onHover && (
                 <div
-                  id={arrPath.id}
                   style={styleHoverLink(arrPath.id, onHoverId, activedLink)}
                 />
               )}
