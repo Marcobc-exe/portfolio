@@ -1,16 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useThree } from "@react-three/fiber";
 import { useMediaQuery } from "@mui/material";
-import { useEffect, useMemo, useRef } from "react";
-import { Euler, PMREMGenerator, Quaternion, Vector3 } from "three";
-import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { SUN_DIR, getShipTransform } from "../scene";
-import { createShipMaterials } from "./materials";
+import { useMemo, useRef } from "react";
+import { Euler, Matrix4, Quaternion, Vector3 } from "three";
+import { SUN_DIR, SUN_POSITION, getShipTransform } from "../scene";
 import SpaceshipModel from "./SpaceshipModel";
-
-// Turn from the home camera's view: nose away, to the right and a bit down, so we see the
-// engines, the top and the left side (a rear three-quarter view)
-const SHIP_TURN = new Euler(0.3, -1.15, 0.08, "YXZ");
+import useShipMaterials from "./useShipMaterials";
 
 // Page fade (seconds): out fast when leaving home, in once the camera has nearly arrived
 const FADE_OUT = 0.4;
@@ -24,24 +19,18 @@ const Spaceship = ({ page }) => {
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   const transform = useMemo(() => getShipTransform(variant), [variant]);
-  const orientation = useMemo(
-    () => transform.quaternion.clone().multiply(new Quaternion().setFromEuler(SHIP_TURN)),
-    [transform]
-  );
   // "Up" on screen in the home view, for the floating bob
   const screenUp = useMemo(() => new Vector3(0, 1, 0).applyQuaternion(transform.quaternion), [transform]);
+  // Nose (-z) pointing at the sun, top kept up on screen. Matrix4.lookAt aims -z at the target
+  const orientation = useMemo(
+    () =>
+      new Quaternion().setFromRotationMatrix(
+        new Matrix4().lookAt(transform.position, new Vector3(...SUN_POSITION), screenUp)
+      ),
+    [transform, screenUp]
+  );
 
-  // A soft studio-like reflection map (generated, no image file) so the metal and glass shine
-  const gl = useThree((state) => state.gl);
-  const envMap = useMemo(() => {
-    const generator = new PMREMGenerator(gl);
-    const texture = generator.fromScene(new RoomEnvironment(), 0.04).texture;
-    generator.dispose();
-    return texture;
-  }, [gl]);
-  useEffect(() => () => envMap.dispose(), [envMap]);
-
-  const materials = useMemo(() => createShipMaterials(envMap), [envMap]);
+  const materials = useShipMaterials();
   const glowUniforms = useMemo(() => ({ uPulse: { value: 1 }, uOpacity: { value: 1 } }), []);
 
   const groupRef = useRef();
