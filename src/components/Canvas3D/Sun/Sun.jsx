@@ -1,27 +1,21 @@
 /* eslint-disable react/no-unknown-property */
-import { useMemo } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { useMediaQuery } from "@mui/material";
 import { AdditiveBlending, Color } from "three";
+import { SUN_POSITION } from "../scene";
 import coreVertex from "../shaders/sunCoreVertex.glsl";
 import coreFragment from "../shaders/sunCoreFragment.glsl";
 import coronaVertex from "../shaders/sunCoronaVertex.glsl";
 import coronaFragment from "../shaders/sunCoronaFragment.glsl";
 
-// Same breakpoint as the phone layout in the CSS (see Layout/styles/index.css)
-const PHONE_QUERY = "(max-width: 600px), (max-height: 500px) and (orientation: landscape)";
-
-const SUN_Z = -230;
-const CORE_RADIUS = 0.1; // ~20px across with the camera's zoom of 95
-const CORONA_SIZE = 1.26; // ~120px across
-// Phones: tucked into the top-right corner, a bit smaller, to stay clear of the page content
-const PHONE_MARGIN = 0.25;
-const PHONE_SCALE = 0.8;
+// World units at ~200 units from the home camera: ~20 px core and ~120 px corona on a 1440 x 900 screen
+const CORE_RADIUS = 1.45;
+const CORONA_SIZE = 18.3;
 
 /* Plasma-textured core + glowing corona with slowly turning rays */
 const Sun = () => {
-  const viewport = useThree((state) => state.viewport);
-  const isPhone = useMediaQuery(PHONE_QUERY);
+  const coronaRef = useRef();
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   // One time uniform shared by both materials
@@ -42,17 +36,15 @@ const Sun = () => {
     [time]
   );
 
-  // delta keeps the speed the same on any refresh rate; reduced motion freezes it
-  useFrame((_, delta) => {
+  useFrame(({ camera }, delta) => {
+    // The corona is a flat plane, so it always turns to face the camera
+    coronaRef.current.quaternion.copy(camera.quaternion);
+    // delta keeps the speed the same on any refresh rate; reduced motion freezes it
     if (!reduceMotion) time.value += delta;
   });
 
-  const position = isPhone
-    ? [viewport.width / 2 - PHONE_MARGIN, viewport.height / 2 - PHONE_MARGIN, SUN_Z]
-    : [0, 0, SUN_Z];
-
   return (
-    <group position={position} scale={isPhone ? PHONE_SCALE : 1}>
+    <group position={SUN_POSITION}>
       <mesh scale={CORE_RADIUS}>
         <sphereGeometry args={[1, 32, 32]} />
         <shaderMaterial
@@ -62,8 +54,8 @@ const Sun = () => {
         />
       </mesh>
 
-      {/* Slightly behind the core, so the core is drawn on top */}
-      <mesh position={[0, 0, -0.01]} scale={CORONA_SIZE}>
+      {/* depthWrite off on the corona, so the core (drawn as opaque) always shows through it */}
+      <mesh ref={coronaRef} scale={CORONA_SIZE}>
         <planeGeometry args={[1, 1]} />
         <shaderMaterial
           vertexShader={coronaVertex}

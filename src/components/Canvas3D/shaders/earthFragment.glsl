@@ -6,6 +6,7 @@ uniform float uCloudOffset; // where the (faster) cloud layer sits over this poi
 
 varying vec2 vUv;
 varying vec3 vNormal;
+varying vec3 vWorldPosition;
 
 void main() {
   vec3 n = normalize(vNormal);
@@ -30,7 +31,8 @@ void main() {
   color += vec3(1.0, 0.45, 0.2) * exp(-pow(NdotL * 8.0, 2.0)) * 0.12;
 
   // Atmospheric rim on the surface, only on the sunlit side
-  float fresnel = pow(1.0 - max(n.z, 0.0), 3.0);
+  vec3 viewDir = normalize(cameraPosition - vWorldPosition);
+  float fresnel = pow(1.0 - max(dot(n, viewDir), 0.0), 3.0);
   color += vec3(0.3, 0.6, 1.0) * fresnel * smoothstep(-0.3, 0.6, NdotL);
 
   gl_FragColor = vec4(color, 1.0);

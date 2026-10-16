@@ -1,24 +1,19 @@
 /* eslint-disable react/no-unknown-property */
 import { useEffect, useMemo, useRef } from "react";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { useMediaQuery } from "@mui/material";
-import { AdditiveBlending, BackSide, RepeatWrapping, TextureLoader, Vector3 } from "three";
+import { AdditiveBlending, BackSide, RepeatWrapping, TextureLoader } from "three";
+import { EARTH_RADIUS, SUN_DIR } from "../scene";
 import earthVertex from "../shaders/earthVertex.glsl";
 import earthFragment from "../shaders/earthFragment.glsl";
 import cloudsFragment from "../shaders/cloudsFragment.glsl";
 import atmosphereVertex from "../shaders/atmosphereVertex.glsl";
 import atmosphereFragment from "../shaders/atmosphereFragment.glsl";
 
-// Desktop look: radius 4, centered at x = -8, y = -2
-const EARTH_RADIUS = 4;
 const SPHERE_ARGS = [1, 64, 64];
 const CLOUDS_RADIUS = EARTH_RADIUS * 1.01;
 // The old atmosphere shader divided position by w = 0.9, which scaled the 4.2 shell by 1/0.9
 const ATMOSPHERE_RADIUS = 4.2 / 0.9;
-
-// Light from the upper right (the sun's side) and a bit from behind the planet. Only the globe's
-// right side is on screen, so this puts the day/night line through the visible part
-const SUN_DIR = new Vector3(1.0, 0.3, -0.5).normalize();
 
 // rad/s; the earth matches the old 0.0005 per frame at 60 Hz, the clouds drift a bit faster
 const EARTH_SPEED = 0.03;
@@ -31,8 +26,6 @@ const Earth = () => {
     "./earth_lights_2048.webp",
     "./earth_clouds_1024.webp",
   ]);
-  // World units visible on screen (canvas px / camera zoom)
-  const viewport = useThree((state) => state.viewport);
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   const surfaceRef = useRef();
@@ -63,7 +56,8 @@ const Earth = () => {
   const atmosphereUniforms = useMemo(
     () => ({
       uSunDir: sunDir,
-      // -normal.z of the shell's back face right at the planet's edge
+      // -dot(normal, viewDir) on the shell's back face where the line of sight grazes the planet
+      // (the same at any camera distance: that ray passes EARTH_RADIUS from the center)
       uRimDepth: { value: Math.sqrt(1 - (EARTH_RADIUS / ATMOSPHERE_RADIUS) ** 2) },
     }),
     [sunDir]
@@ -80,14 +74,9 @@ const Earth = () => {
       (surfaceRef.current.rotation.y - cloudsRef.current.rotation.y) / (2 * Math.PI);
   });
 
-  // Wide screens keep the desktop look; narrower ones pin the globe to the
-  // left edge, and phones / short screens shrink it so it still shows
-  const radius = Math.min(EARTH_RADIUS, viewport.width * 0.5, viewport.height * 0.75);
-  const ratio = radius / EARTH_RADIUS;
-  const x = Math.max(-8, -viewport.width / 2 - 0.8 * ratio);
-
+  // At the world origin; each page's camera pose decides how it is framed (see scene.js)
   return (
-    <group position={[x, -2 * ratio, -5]} scale={ratio}>
+    <group>
       <mesh ref={surfaceRef} scale={EARTH_RADIUS}>
         <sphereGeometry args={SPHERE_ARGS} />
         <shaderMaterial

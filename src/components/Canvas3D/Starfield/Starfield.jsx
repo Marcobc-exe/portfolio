@@ -6,12 +6,11 @@ import { AdditiveBlending, Color } from "three";
 import starsVertex from "../shaders/starsVertex.glsl";
 import starsFragment from "../shaders/starsFragment.glsl";
 
-const COUNT = 2500;
-// World units; with the orthographic zoom of 95 this covers screens up to ~4200 x 2500 px,
-// so wider screens simply show more of the same field
-const FIELD_WIDTH = 44;
-const FIELD_HEIGHT = 26;
-const FIELD_Z = -600; // behind the sun and the earth
+// Spread over a whole sphere so there is sky in every direction the camera turns;
+// a desktop screen shows ~300 of them
+const COUNT = 6500;
+// Far beyond the sun; the camera only moves a few dozen units, so the stars barely shift (like a real sky)
+const SKY_RADIUS = 600;
 const SEED = 7; // same sky on every visit
 
 // Star colors by temperature, with how common each one is
@@ -49,9 +48,13 @@ const createStars = () => {
   const speeds = new Float32Array(COUNT);
 
   for (let i = 0; i < COUNT; i++) {
-    positions[i * 3] = (random() - 0.5) * FIELD_WIDTH;
-    positions[i * 3 + 1] = (random() - 0.5) * FIELD_HEIGHT;
-    positions[i * 3 + 2] = FIELD_Z;
+    // Uniform direction on the sphere
+    const y = random() * 2 - 1;
+    const angle = random() * Math.PI * 2;
+    const ring = Math.sqrt(1 - y * y);
+    positions[i * 3] = SKY_RADIUS * ring * Math.cos(angle);
+    positions[i * 3 + 1] = SKY_RADIUS * y;
+    positions[i * 3 + 2] = SKY_RADIUS * ring * Math.sin(angle);
     pickColor(random).toArray(colors, i * 3);
     // Mostly 1-1.5 px, a few bright ones up to ~4.5 px
     sizes[i] = 1.0 + 3.5 * random() ** 6;

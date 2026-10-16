@@ -4,6 +4,7 @@ uniform vec3 uColorWarm;
 
 varying vec3 vNormal;
 varying vec3 vPosition;
+varying vec3 vViewDir;
 
 // 3D value noise + fbm: the moving "plasma" on the surface
 float hash(vec3 p) {
@@ -44,7 +45,7 @@ void main() {
   vec3 color = mix(uColorWarm, uColorHot, smoothstep(0.3, 0.7, plasma));
 
   // Limb darkening: the edge of the disc is a bit dimmer than the center
-  float facing = max(dot(vNormal, vec3(0.0, 0.0, 1.0)), 0.0);
+  float facing = max(dot(normalize(vNormal), normalize(vViewDir)), 0.0);
   color *= mix(0.75, 1.0, pow(facing, 0.4));
 
   gl_FragColor = vec4(color, 1.0);

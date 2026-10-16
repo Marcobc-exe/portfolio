@@ -1,22 +1,18 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
+import CameraRig from "./CameraRig/CameraRig";
 import Earth from "./Earth/Earth";
 import ShootingStars from "./ShootingStars/ShootingStars";
 import Starfield from "./Starfield/Starfield";
 import Sun from "./Sun/Sun";
+import { BASE_FOV } from "./scene";
 
-const Canvas3D = () => {
+/* page: "home" | "work" | "about" | "contact"; each one has its own camera pose (see scene.js) */
+const Canvas3D = ({ page }) => {
   return (
-    <Canvas
-      className="canvas"
-      shadows={true}
-      orthographic
-      camera={{
-        near: 3,
-        far: 1200,
-        zoom: 95,
-      }}
-    >
+    <Canvas className="canvas" camera={{ fov: BASE_FOV, near: 0.1, far: 2000 }}>
+      {/* First, so the camera is in place before the sun and shooting stars copy its rotation */}
+      <CameraRig page={page} />
       <Starfield />
       <ShootingStars />
       <Sun />

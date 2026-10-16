@@ -5,14 +5,15 @@ import CursorPro from "../CursorPro/CursorPro";
 import { Navbar } from "../Navbar/Navbar";
 import Canvas3D from "../Canvas3D/Canvas";
 
-/* Bordered frame (CSS grid): globe behind everything, page in the "main" area, Navbar on top */
-const Layout = ({ children }) => {
+/* Bordered frame (CSS grid): globe behind everything, page in the "main" area, Navbar on top.
+   transitionPhase ("idle" | "leaving" | "entering") fades the page during camera moves (see AppRouter) */
+const Layout = ({ children, transitionPhase = "idle" }) => {
   const { selected } = useCursorEvents();
 
   return (
     <Box className="layout">
-      <Canvas3D key={"canvas"} />
-      <Box component="main" className="layoutContent">
+      <Canvas3D key={"canvas"} page={selected} />
+      <Box component="main" className={`layoutContent ${transitionPhase}`}>
         {children}
       </Box>
       <Navbar key={"navbar"} activedLink={selected} />

@@ -1,9 +1,12 @@
 varying vec2 vUv;
-varying vec3 vNormal;
+varying vec3 vNormal; // world space, like uSunDir
+varying vec3 vWorldPosition;
 
 void main () {
   vUv = uv;
-  // View space: the orthographic camera never rotates, so uSunDir is a fixed direction here
-  vNormal = normalize(normalMatrix * normal);
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  // The meshes are scaled uniformly, so the model matrix keeps normals perpendicular
+  vNormal = normalize(mat3(modelMatrix) * normal);
+  vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+  vWorldPosition = worldPosition.xyz;
+  gl_Position = projectionMatrix * viewMatrix * worldPosition;
 }
