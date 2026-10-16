@@ -41,6 +41,8 @@ Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components
 
 `Canvas3D` imports `.glsl` files via `vite-plugin-string`. Earth textures live in `src/assets/`. Changes to shaders require no extra tooling — Vite handles the import.
 
+The sun is its own component (`Canvas3D/Sun/Sun.jsx`): a plasma core (`sunCore*.glsl`) plus an additive corona plane with rays (`sunCorona*.glsl`), sharing one `uTime` uniform. On the phone breakpoint it moves to the top-right corner, and it stops animating with `prefers-reduced-motion`.
+
 ### State management
 
 No Redux or Zustand. The `store/` directory is an empty remnant. Use `CursorContext` for anything that needs to cross component boundaries; otherwise keep state local.

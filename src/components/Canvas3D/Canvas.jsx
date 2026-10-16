@@ -2,14 +2,13 @@
 import { Suspense } from "react";
 import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import Sphere from "./Sphere/Sphere";
+import Sun from "./Sun/Sun";
 import { TextureLoader, AdditiveBlending, BackSide } from "three";
 import { Stars } from "@react-three/drei";
 import earthVShaders from './shaders/vertex.glsl'
 import earthFShaders from './shaders/fragment.glsl'
 import earthAtmosphereVShaders from './shaders/atmosphereVertex.glsl'
 import earthAtmosphereFShaders from './shaders/atmosphereFragment.glsl'
-import sunVertex from './shaders/sunVertex.glsl'
-import sunFragment from './shaders/sunFragment.glsl'
 
 // radius 1 keeps the original on-screen size (three.js default radius)
 const SPHERE_ARGS = [1, 60, 60];
@@ -70,16 +69,7 @@ const Canvas3D = () => {
       }}
     >
       <Stars count={10000} fade={true} radius={2} />
-      <Sphere
-        position={[0, 0, -230]}
-        args={SPHERE_ARGS}
-        scale={0.1}
-        isSun={true}
-        vertexShader={sunVertex}
-        fragmentShader={sunFragment}
-        blending={AdditiveBlending}
-        side={BackSide}
-      />
+      <Sun />
       <Suspense fallback={null}>
         <Earth />
       </Suspense>
