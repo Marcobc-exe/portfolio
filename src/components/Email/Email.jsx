@@ -1,60 +1,61 @@
+import "./index.css";
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import Check from "@mui/icons-material/Check";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import useCursorEvents from "../../hooks/useCursorEvents";
-import "./index.css"
 
-export const Email = ({ classes }) => {
+const EMAIL = "marco.bravo.dev@gmail.com";
+
+export const Email = () => {
   const [isCopyEmail, setIsCopyEmail] = useState(false);
-  const [isHoverEmail, setIsHoverEmail] = useState(false);
   const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
-  const handleMouseEnter = (e) => {
-    setOnHoverEvent(e.target.id);
-    if (!isCopyEmail) setIsHoverEmail(true);
+  const handleMouseEnter = () => {
+    setOnHoverEvent("email");
   };
 
   const handleMouseLeave = () => {
     removeOnHoverEvent();
-    setIsHoverEmail(false);
   };
 
-  const copyEmail = (event) => {
-    const email = event.target.innerText;
-    let input = document.createElement("input");
-    input.setAttribute("value", email);
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand("copy");
-    document.body.removeChild(input);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch {
+      return;
+    }
 
     setIsCopyEmail(true);
-
-    if (isHoverEmail) setIsHoverEmail(false)
   };
 
   useEffect(() => {
-    if (isCopyEmail) {
-      setTimeout(() => {
-        setIsCopyEmail(false);
-      }, 2000);
-    }
+    if (!isCopyEmail) return;
+
+    const timeoutId = setTimeout(() => {
+      setIsCopyEmail(false);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
   }, [isCopyEmail]);
 
   return (
-    <Box style={classes.boxEmail}>
-      <span>Email:</span>
-      <span
-        id="email"
-        className="txtEmail"
-        value="marco.developing@gmail.com"
-        onClick={copyEmail}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        marco.developing@gmail.com
+    <Box
+      className="boxEmail"
+      onClick={copyEmail}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <span id="email" className="txtEmail">
+        {EMAIL}
       </span>
-      {isCopyEmail && <span className={"txtCopied"}>Copied!</span>}
-      {isHoverEmail && <span className={"txtCopy"}>Copy?</span>}
+      <span className={`emailBadge${isCopyEmail ? " isCopied" : ""}`}>
+        {isCopyEmail ? (
+          <Check fontSize="inherit" titleAccess="Email copied" />
+        ) : (
+          <ContentCopy fontSize="inherit" titleAccess="Copy email" />
+        )}
+      </span>
     </Box>
   );
 };

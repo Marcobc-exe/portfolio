@@ -1,47 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const styleLayout = () => {
-  return {
-    layout: {
-      border: "1px solid rgba(217, 217, 217, .4)",
-      margin: 35,
-      display: "flex",
-      placeItems: "center",
-      minWidth: "calc(100vw - 72px)",
-      minHeight: "calc(100vh - 72px)",
-      // overflow: "hidden",
-      // backgroundColor: "yellow",
-    },
-    containerNavbar: {
-      position: "absolute",
-      // backgroundColor: "green",
-      bottom: 0,
-      marginBottom: 70,
-      height: "120px",
-      width: "120px",
-      zIndex: 1,
-    },
-    containerLinks: {
-      margin: 10,
-      display: "flex",
-      flexDirection: "column",
-    },
-    containerLink: {
-      height: "24px",
-      display: "flex",
-      flexDirection: "row",
-      position: "relative",
-      left: "-5px",
-      margin: "2px 0px"
-    },
-    containerHoverLink: {
-      height: "100%",
-      width: "24px",
-    },
-  };
-};
-
 const styleLink = (id, activedLink) => {
   if (id === activedLink ) {
     return {
@@ -83,4 +42,4 @@ const StyledLink = styled(Link)`
   letter-spacing: 1px;
 `;
 
-export { styleLayout, styleLink, styleHoverLink, StyledLink };
+export { styleLink, styleHoverLink, StyledLink };

@@ -1,33 +1,35 @@
-.txtCopied {
-  border: 1px solid #247c33;
-  color: #247c33;
-  border-radius: 20px;
-  padding: 3px 6px;
-  font-size: 15px;
-  position: absolute;
-  right: 0;
-  top: 45px;
-  margin-right: 25px;
-  letter-spacing: 1px;
-  font-family: Neue Montreal Book;
+/* fit-content: only the email and its icon react to hover/click, not the empty space beside them */
+.boxEmail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 4px;
+  width: fit-content;
+  max-width: 100%;
 }
 
-.txtCopy {
-  border: 1px solid #7c807d;
-  color: #7c807d;
-  border-radius: 20px;
-  padding: 3px 6px;
-  font-size: 15px;
-  position: absolute;
-  right: 0;
-  top: 45px;
-  margin-right: 35px;
-  letter-spacing: 1px;
-  font-family: Neue Montreal Book;
+/* Same gap, size and color as the LinkedIn/GitHub icons (Internet/index.css).
+   Both icons are 1em squares, so nothing moves when they swap */
+.emailBadge {
+  display: inline-flex;
+  color: #d9d9d9;
+  font-size: 14px;
+}
+
+.emailBadge.isCopied {
+  color: #247c33;
 }
 
 .txtEmail {
   font-family: Neue Montreal Medium;
+  overflow-wrap: anywhere;
+}
+
+/* Narrow phones: keep the icon on the same line as the email */
+@media (max-width: 360px) {
+  .txtEmail {
+    font-size: 15px;
+  }
 }
 
 /* .txtEmail:hover {

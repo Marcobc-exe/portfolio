@@ -1,30 +1,24 @@
+/* Desktop: horizontally centered near the top of the frame */
 .containerAbout {
-  /* background-color: green; */
-  width: 700px;
-  height: 300px;
-  position: absolute;
-  top: 0;
-  margin-top: 160px;
-  left: 50%;
-  transform: translateX(-50%);
+  align-self: start;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  width: min(700px, 100%);
+  min-height: 300px;
+  margin-top: 124px;
 }
 
 .containerTitleAbout {
-  /* background-color: teal; */
   width: 90%;
+  margin: 0 auto;
   font-size: 42px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .containerBodyAbout {
-  /* background-color: rebeccapurple; */
+  flex: 1;
   width: 90%;
-  height: calc(100% - 146px);
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -32,10 +26,6 @@
   font-size: 18px;
   letter-spacing: .5px;
   padding-top: 20px;
-}
-
-.pro-description {
-  /* background-color: magenta; */
 }
 
 .box-personal-desc {
@@ -46,4 +36,37 @@
 
 .txtAuthor {
   font-family: Neue Montreal Italic;
+}
+
+/* Short desktop windows: keep clear of the Navbar */
+@media (max-height: 640px) {
+  .containerAbout {
+    margin-top: 48px;
+  }
+}
+
+@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
+  .containerAbout {
+    width: 100%;
+    min-height: 0;
+    max-height: 100%;
+    margin-top: 8px;
+    overflow-y: auto;
+  }
+
+  .containerTitleAbout,
+  .containerBodyAbout {
+    width: 100%;
+  }
+
+  .containerTitleAbout {
+    font-size: 28px;
+  }
+
+  .containerBodyAbout {
+    flex: none;
+    gap: 16px;
+    padding-top: 16px;
+    font-size: 16px;
+  }
 }

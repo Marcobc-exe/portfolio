@@ -1,10 +1,12 @@
+/* Desktop: vertically centered on the right side of the frame */
 .containerWorkPage {
+  align-self: center;
+  justify-self: end;
   display: flex;
   flex-direction: column;
-  height: calc(70vh);
-  position: absolute;
-  right: 0;
-  margin-right: 140px;;
+  height: 70vh;
+  max-height: 100%;
+  margin-right: 104px;
   gap: 20px;
   overflow-y: auto;
 }
@@ -13,13 +15,30 @@
   width: 5px;
 }
 
+/* The scrollbar only shows while the pointer is over the list (its space stays reserved) */
 .containerWorkPage::-webkit-scrollbar-thumb {
-  background-color: rgb(119, 119, 119);
+  background-color: transparent;
   border-radius: 40px;
 }
 
+.containerWorkPage:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(119, 119, 119);
+}
+
 .containerWorkPage::-webkit-scrollbar-track {
-  background-color: none;
+  background-color: transparent;
+}
+
+/* Firefox (setting scrollbar-color would disable the rules above in Chrome) */
+@supports not selector(::-webkit-scrollbar) {
+  .containerWorkPage {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  .containerWorkPage:hover {
+    scrollbar-color: rgb(119, 119, 119) transparent;
+  }
 }
 
 .containerLkProyect {
@@ -54,4 +73,28 @@
   align-self: flex-end;
   letter-spacing: 1px;
   font-family: Neue Montreal Thin;
+}
+
+@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
+  .containerWorkPage {
+    height: auto;
+    margin-right: 0;
+    padding-right: 12px;
+    gap: 12px;
+  }
+
+  .containerLkProyect {
+    height: 40px;
+    gap: 8px;
+  }
+
+  .txtYearProyect {
+    font-size: 13px;
+    height: 18px;
+  }
+
+  .txtNameProyect {
+    font-size: 26px;
+    height: 33px;
+  }
 }

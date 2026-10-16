@@ -1,0 +1,50 @@
+/* Desktop: a column in the bottom-left corner of the frame */
+.navbar {
+  grid-area: main;
+  align-self: end;
+  justify-self: start;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 34px 5px;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  position: relative;
+  display: flex;
+}
+
+/* Holds the hover dot next to each link */
+.navDot {
+  width: 24px;
+}
+
+/* Bigger tap targets on touch screens (vertical padding keeps the line-through centered) */
+@media (pointer: coarse) {
+  .navItem .navLink {
+    padding: 10px 0;
+  }
+}
+
+/* Phones: one centered row at the bottom, without the hover dots */
+@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
+  .navbar {
+    grid-area: nav;
+    justify-self: center;
+    margin: 4px 0 8px;
+  }
+
+  .navLinks {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .navDot {
+    display: none;
+  }
+}

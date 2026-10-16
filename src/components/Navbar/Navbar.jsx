@@ -4,8 +4,9 @@ import useCursorEvents from "../../hooks/useCursorEvents";
 import { arrPaths } from "../../constants/menuPaths";
 import { StyledLink, styleHoverLink, styleLink } from "../Layout/styles/styles";
 import { capitalizeText } from "../../utils/Capitalize";
+import "./index.css";
 
-export const Navbar = ({ classes, activedLink }) => {
+export const Navbar = ({ activedLink }) => {
   const [onHover, setOnHover] = useState(false);
   const [onHoverId, setOnHoverId] = useState(null);
   const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
@@ -27,20 +28,20 @@ export const Navbar = ({ classes, activedLink }) => {
   };
 
   return (
-    <Box style={classes.containerNavbar}>
-      <Box style={classes.containerLinks}>
+    <Box component="nav" className="navbar">
+      <Box className="navLinks">
         {arrPaths.map((arrPath, index) => (
-          <Box key={index} style={classes.containerLink}>
-            <div style={classes.containerHoverLink}>
+          <Box key={index} className="navItem">
+            <div className="navDot">
               {onHover && (
                 <div
-                  id={arrPath.id}
                   style={styleHoverLink(arrPath.id, onHoverId, activedLink)}
                 />
               )}
             </div>
 
             <StyledLink
+              className="navLink"
               id={arrPath.id}
               to={arrPath.path}
               onMouseEnter={(event) => handleMouseEnter(event)}

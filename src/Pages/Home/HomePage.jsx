@@ -1,10 +1,8 @@
-import { Box } from "@mui/material";
-import { styleHomePage } from "./styles/style";
-// import useCursorEvents from "../../hooks/useCursorEvents";
 import "./styles/index.css"
+import { Box } from "@mui/material";
+// import useCursorEvents from "../../hooks/useCursorEvents";
 
 const HomePage = () => {
-  const classes = styleHomePage();
   // const { setOnHoverEvent, removeOnHoverEvent } = useCursorEvents();
 
   // const handleMouseEnter = (e) => {
@@ -16,34 +14,24 @@ const HomePage = () => {
   // };
 
   return (
-    <Box style={classes.containerTitle}>
-      <Box style={classes.boxFullName}>
-        <span style={classes.txtFullName}>Marco Bravo</span>
-      </Box>
+    <Box className="homePage">
+      <span className="txtFullName">Marco Bravo</span>
+      <span className="txtRole">React Front-end Developer</span>
 
-      <Box style={classes.boxSubtitle}>
-        <Box style={classes.boxRole}>
-          <span>React Front-end Developer</span>
-        </Box>
-
-        {/* <Box style={classes.boxCompany}>
-          <span>
-            Currently working at{" "}
-            <a
-              id="linkCompany"
-              style={classes.linkCompany}
-              className={"linkCompany"}
-              href="https://www.agrosat.cl/"
-              target="_blank"
-              rel="noreferrer"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              Agrosat International
-            </a>
-          </span>
-        </Box> */}
-      </Box>
+      {/* <span className="txtRole">
+        Currently working at{" "}
+        <a
+          id="linkCompany"
+          className={"linkCompany"}
+          href="https://www.agrosat.cl/"
+          target="_blank"
+          rel="noreferrer"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          Agrosat International
+        </a>
+      </span> */}
     </Box>
   );
 };
