@@ -1,4 +1,4 @@
-import { Vector3 } from "three";
+import { PerspectiveCamera, Vector3 } from "three";
 
 // The earth sits at the world origin; everything else is placed around it
 export const EARTH_RADIUS = 4;
@@ -81,4 +81,28 @@ export const lerpPose = (from, to, t) => {
     pitch: lerp(from.pitch, to.pitch),
     zoom: lerp(from.zoom ?? 1, to.zoom ?? 1),
   };
+};
+
+/*
+  Where the spaceship floats in the home view: x / y in screen coordinates (-1..1, center = 0)
+  and its distance from the camera. aspect is the reference screen used to place it.
+*/
+export const SHIP_PLACEMENT = {
+  landscape: { x: 0.3, y: 0.38, distance: 19, aspect: DESKTOP_ASPECT },
+  portrait: { x: 0.2, y: 0.45, distance: 18, aspect: 349 / 786 },
+};
+
+// World position + the home camera's rotation for the spaceship, so it lands on that screen spot
+export const getShipTransform = (variant) => {
+  const place = SHIP_PLACEMENT[variant];
+  const camera = new PerspectiveCamera(getFov(place.aspect), place.aspect, 0.1, 2000);
+  applyPose(camera, CAMERA_POSES.home[variant]);
+  camera.updateMatrixWorld();
+  const tanHalf = Math.tan((camera.fov * Math.PI) / 360);
+  const local = new Vector3(
+    place.x * place.distance * tanHalf * place.aspect,
+    place.y * place.distance * tanHalf,
+    -place.distance
+  );
+  return { position: camera.localToWorld(local), quaternion: camera.quaternion.clone() };
 };

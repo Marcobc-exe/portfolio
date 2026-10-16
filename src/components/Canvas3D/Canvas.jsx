@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import CameraRig from "./CameraRig/CameraRig";
 import Earth from "./Earth/Earth";
 import ShootingStars from "./ShootingStars/ShootingStars";
+import Spaceship from "./Spaceship/Spaceship";
 import Starfield from "./Starfield/Starfield";
 import Sun from "./Sun/Sun";
 import { BASE_FOV } from "./scene";
@@ -20,6 +21,8 @@ const Canvas3D = ({ page }) => {
       <Suspense fallback={null}>
         <Earth />
       </Suspense>
+      {/* For now only on home: fades out on the other pages */}
+      <Spaceship page={page} />
     </Canvas>
   );
 };
