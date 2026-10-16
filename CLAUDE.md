@@ -31,7 +31,9 @@ There are no tests configured.
 
 Every page renders inside `Layout`, which mounts the `Navbar`, the `Canvas3D` globe (Three.js / react-three-fiber), and the `CursorPro` overlay. The 3D canvas sits behind page content.
 
-`Layout` is a bordered CSS grid. Each page's root element positions itself inside the `main` area with `align-self`/`justify-self` (no absolute positioning). On phones and short landscape screens (`(max-width: 600px), (max-height: 500px) and (orientation: landscape)`, repeated in each CSS file) the Navbar moves to its own centered row at the bottom. The Earth's position and size are computed from the R3F viewport in `Canvas3D`, so it stays visible on narrow screens.
+`Layout` is a bordered CSS grid. Each page's root element positions itself inside the `main` area with `align-self`/`justify-self` (no absolute positioning). On phones and short landscape screens (`(max-width: 600px), (max-height: 500px) and (orientation: landscape)`, repeated in each CSS file) the Navbar moves to its own centered row at the bottom.
+
+Page transitions: `AppRouter` renders `<Routes location={displayedLocation}>` and passes a `transitionPhase` (`idle` | `leaving` | `entering`) to `Layout`, which puts it as a class on `<main>`. On navigation the old page fades out (250 ms), then the new one is rendered and fades in while the camera finishes its move (CSS in `Layout/styles/index.css`). With `prefers-reduced-motion` the switch is immediate. `Layout` passes the current page (`selected` from `CursorContext`, i.e. the real route) to `Canvas3D`, so the camera starts moving right away.
 
 ### Styling
 
@@ -39,7 +41,15 @@ Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components
 
 ### 3D / shaders
 
-`Canvas3D` imports `.glsl` files via `vite-plugin-string`. Earth textures live in `src/assets/`. Changes to shaders require no extra tooling — Vite handles the import.
+`Canvas3D` imports `.glsl` files via `vite-plugin-string`. Changes to shaders require no extra tooling — Vite handles the import.
+
+The camera is a perspective camera driven by `Canvas3D/CameraRig/CameraRig.jsx`. Everything about the scene layout lives in `Canvas3D/scene.js`: the earth at the origin (`EARTH_RADIUS`), the light direction `SUN_DIR` (world space, deliberately independent from where the sun is drawn so the home view keeps its half-lit globe), `SUN_POSITION`, and `CAMERA_POSES` — one fixed pose per page (`home`, `work`, `about`, `contact`), each with a `landscape` and a `portrait` (aspect < 1) variant. A pose is `{ azimuth, elevation, distance }` (orbit around the earth) + `{ yaw, pitch }` (turn away from looking straight at it) + optional `zoom`; the earth's place on screen depends only on distance / yaw / pitch / zoom, while azimuth / elevation pick which side of it faces the camera and where the sun lands. Transitions ease (1.6 s, ease-in-out) between those numbers, so the camera always travels on an arc; a new page mid-move starts from the current pose; reduced motion jumps. `getFov` widens the vertical FOV on narrower screens (35°–55°) to keep the desktop's horizontal framing. All objects are in world space, so shaders use world normals + `cameraPosition` (not view-space tricks).
+
+The sun is its own component (`Canvas3D/Sun/Sun.jsx`) at `SUN_POSITION`: a plasma core (`sunCore*.glsl`) plus an additive corona plane with rays (`sunCorona*.glsl`) that turns to face the camera every frame; it stops animating with `prefers-reduced-motion`.
+
+The Earth is also its own component (`Canvas3D/Earth/Earth.jsx`): a surface (`earth*.glsl`: day map, night/city lights, cloud shadows, warm terminator), a cloud layer (`cloudsFragment.glsl`) and a sunlit atmosphere rim (`atmosphere*.glsl`), all lit by one `SUN_DIR` (light from the upper right, slightly behind the planet). Textures are in `public/` (`2k_earth_daymap.jpg`, `earth_lights_2048.webp`, `earth_clouds_1024.webp`; the clouds WebP stores density in the RGB channels). Rotation uses `delta` and stops with `prefers-reduced-motion`.
+
+The sky is `Canvas3D/Starfield/Starfield.jsx` (6,500 seeded points on a 600-unit sphere around the scene, temperature colors, individual twinkle and cross spikes on the brightest; `stars*.glsl`) plus `Canvas3D/ShootingStars/ShootingStars.jsx` (one reused streak every 6–14 s in camera space, so it crosses the screen the same way in every pose; state in a ref; `shootingStar*.glsl`). `CameraRig` is the first child of the `<Canvas>`, so the camera is updated before the sun and shooting stars copy its rotation. Both stop with `prefers-reduced-motion`. drei is no longer imported anywhere.
 
 ### State management
 

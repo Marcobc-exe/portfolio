@@ -6,25 +6,23 @@ const CursorPro = () => {
   const cursorRef = useRef(null);
   const { event, selected } = useCursorEvents();
   const [eventSelected, setEventSelected] = useState("");
+  // Last value passed to setEventSelected, so mousemove only re-renders when it changes
+  const eventSelectedRef = useRef("");
 
   useEffect(() => {
     const cursorDot = cursorRef.current;
 
     const mouseMove = (e) => {
-      const posX = e.clientX;
-      const posY = e.clientY;
-      const linkId = e.target.id;
-
+      // transform (instead of left/top) moves the dot without triggering layout
       if (cursorDot) {
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
+        cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
       }
 
-      if (linkId === selected) {
-        setEventSelected("onSelected");
-        return
-      } else {
-        setEventSelected("");
+      const nextEventSelected = e.target.id === selected ? "onSelected" : "";
+
+      if (nextEventSelected !== eventSelectedRef.current) {
+        eventSelectedRef.current = nextEventSelected;
+        setEventSelected(nextEventSelected);
       }
     };
 
