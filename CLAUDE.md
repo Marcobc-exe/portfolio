@@ -43,6 +43,8 @@ Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components
 
 The sun is its own component (`Canvas3D/Sun/Sun.jsx`): a plasma core (`sunCore*.glsl`) plus an additive corona plane with rays (`sunCorona*.glsl`), sharing one `uTime` uniform. On the phone breakpoint it moves to the top-right corner, and it stops animating with `prefers-reduced-motion`.
 
+The Earth is also its own component (`Canvas3D/Earth/Earth.jsx`): a surface (`earth*.glsl`: day map, night/city lights, cloud shadows, warm terminator), a cloud layer (`cloudsFragment.glsl`) and a sunlit atmosphere rim (`atmosphere*.glsl`), all lit by one `SUN_DIR` (light from the upper right, slightly behind the planet). Textures are in `public/` (`2k_earth_daymap.jpg`, `earth_lights_2048.webp`, `earth_clouds_1024.webp`; the clouds WebP stores density in the RGB channels). Rotation uses `delta` and stops with `prefers-reduced-motion`.
+
 ### State management
 
 No Redux or Zustand. The `store/` directory is an empty remnant. Use `CursorContext` for anything that needs to cross component boundaries; otherwise keep state local.
