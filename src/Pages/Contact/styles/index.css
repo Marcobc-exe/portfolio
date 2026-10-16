@@ -1,0 +1,47 @@
+/* Desktop: vertically centered on the right side of the frame */
+.containerContact {
+  align-self: center;
+  justify-self: end;
+  position: relative;
+  width: min(400px, 100%);
+  height: 120px;
+  margin-right: 84px;
+}
+
+.boxTitleContact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  font-family: Neue Montreal Medium;
+  font-size: 20px;
+}
+
+.txtTitleContact {
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.boxLinksContact {
+  height: 68px;
+  font-family: Neue Montreal Thin;
+  letter-spacing: 1px;
+}
+
+/* Phones: the block shrinks to its content and stays against the right side */
+@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
+  .containerContact {
+    width: fit-content;
+    max-width: 100%;
+    height: auto;
+    margin-right: 0;
+  }
+
+  .boxTitleContact {
+    justify-content: flex-start;
+  }
+
+  .boxLinksContact {
+    height: auto;
+  }
+}

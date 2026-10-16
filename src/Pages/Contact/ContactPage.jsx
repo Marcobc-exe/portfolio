@@ -1,20 +1,18 @@
 import { Box } from "@mui/material";
-import { styleContactPage } from "./styles/styles";
+import "./styles/index.css";
 import { Email } from "../../components/Email/Email";
 import { Internet } from "../../components/Internet/Internet";
 
 const ContactPage = () => {
-  const classes = styleContactPage();
-
   return (
-    <Box style={classes.containerContact}>
-      <Box style={classes.boxTitleContact}>
-        <span style={classes.txtTitleContact}>Make contact...</span>
+    <Box className="containerContact">
+      <Box className="boxTitleContact">
+        <span className="txtTitleContact">Make contact...</span>
       </Box>
 
-      <Box style={classes.boxLinksContact}>
-        <Email key={"email"} classes={classes}/>
-        <Internet key={"internet"} classes={classes}/>        
+      <Box className="boxLinksContact">
+        <Email key={"email"} />
+        <Internet key={"internet"} />
       </Box>
     </Box>
   );

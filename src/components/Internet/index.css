@@ -1,4 +1,24 @@
-.txtInternet:hover {
+.boxInternet {
+  display: flex;
+  gap: 8px;
+}
+
+.linkInternet {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #d9d9d9;
+  font-family: Neue Montreal Medium;
+}
+
+/* Same size as the copy icon in Email/index.css */
+.iconExternal {
+  font-size: 14px;
+}
+
+/* Only the word gets the line-through, not the icon */
+.linkInternet:hover .txtInternet {
   background: linear-gradient(to right, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9);
   background-size: 100% 0.1em, 0 0.2em;
   background-position: 0% 55%;

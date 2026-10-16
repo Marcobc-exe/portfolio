@@ -1,3 +1,47 @@
+/* The bordered frame. Pages align themselves inside the "main" area */
+.layout {
+  --frame-gap: clamp(12px, 3vw, 35px);
+  position: relative;
+  box-sizing: border-box;
+  width: calc(100vw - 2 * var(--frame-gap));
+  height: calc(100vh - 2 * var(--frame-gap));
+  height: calc(100dvh - 2 * var(--frame-gap));
+  margin: var(--frame-gap);
+  border: 1px solid rgba(217, 217, 217, .4);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas: "main";
+}
+
+/* The globe covers the whole frame, behind the page and the Navbar */
+.layout > .canvas {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+.layoutContent {
+  grid-area: main;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+
+/* Phones and short landscape screens: the Navbar gets its own row at the bottom */
+@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
+  .layout {
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "main"
+      "nav";
+  }
+
+  .layoutContent {
+    padding: 16px 16px 0;
+  }
+}
+
 @keyframes appearCircle {
   0% {
     border: 1px solid rgba(217, 217, 217, .0);

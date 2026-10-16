@@ -31,9 +31,11 @@ There are no tests configured.
 
 Every page renders inside `Layout`, which mounts the `Navbar`, the `Canvas3D` globe (Three.js / react-three-fiber), and the `CursorPro` overlay. The 3D canvas sits behind page content.
 
+`Layout` is a bordered CSS grid. Each page's root element positions itself inside the `main` area with `align-self`/`justify-self` (no absolute positioning). On phones and short landscape screens (`(max-width: 600px), (max-height: 500px) and (orientation: landscape)`, repeated in each CSS file) the Navbar moves to its own centered row at the bottom. The Earth's position and size are computed from the R3F viewport in `Canvas3D`, so it stays visible on narrow screens.
+
 ### Styling
 
-Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components v6 for custom elements, and per-component `index.css` files. Dark theme with `#0C0C0C` background. Custom font (PP Neue Montreal) loaded via `@font-face` in `src/font/`.
+Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components v6 for custom elements, and per-component `index.css` files. Layout/positioning styles belong in the CSS files (inline `style={}` objects can't use media queries). Dark theme with `#0C0C0C` background. Custom font (PP Neue Montreal) loaded via `@font-face` in `src/font/`.
 
 ### 3D / shaders
 

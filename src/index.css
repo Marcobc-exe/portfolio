@@ -51,6 +51,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* Hide the native cursor only where the custom cursor can follow a mouse */
