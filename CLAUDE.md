@@ -45,6 +45,8 @@ The sun is its own component (`Canvas3D/Sun/Sun.jsx`): a plasma core (`sunCore*.
 
 The Earth is also its own component (`Canvas3D/Earth/Earth.jsx`): a surface (`earth*.glsl`: day map, night/city lights, cloud shadows, warm terminator), a cloud layer (`cloudsFragment.glsl`) and a sunlit atmosphere rim (`atmosphere*.glsl`), all lit by one `SUN_DIR` (light from the upper right, slightly behind the planet). Textures are in `public/` (`2k_earth_daymap.jpg`, `earth_lights_2048.webp`, `earth_clouds_1024.webp`; the clouds WebP stores density in the RGB channels). Rotation uses `delta` and stops with `prefers-reduced-motion`.
 
+The sky is `Canvas3D/Starfield/Starfield.jsx` (2,500 seeded points with temperature colors, individual twinkle and cross spikes on the brightest; `stars*.glsl`) plus `Canvas3D/ShootingStars/ShootingStars.jsx` (one reused streak every 6–14 s, state in a ref; `shootingStar*.glsl`). Both stop with `prefers-reduced-motion`. drei is no longer imported anywhere.
+
 ### State management
 
 No Redux or Zustand. The `store/` directory is an empty remnant. Use `CursorContext` for anything that needs to cross component boundaries; otherwise keep state local.

@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
 import Earth from "./Earth/Earth";
+import ShootingStars from "./ShootingStars/ShootingStars";
+import Starfield from "./Starfield/Starfield";
 import Sun from "./Sun/Sun";
 
 const Canvas3D = () => {
@@ -16,7 +17,8 @@ const Canvas3D = () => {
         zoom: 95,
       }}
     >
-      <Stars count={10000} fade={true} radius={2} />
+      <Starfield />
+      <ShootingStars />
       <Sun />
       {/* Earth loads its textures inside <Canvas>, so only the globe waits for them */}
       <Suspense fallback={null}>
