@@ -6,7 +6,9 @@
   position: fixed;
   top: 0;
   left: 0;
+  /* CursorPro.jsx overrides this with translate3d(x, y, 0) on every mouse move */
   transform: translate(-50%, -50%);
+  will-change: transform;
   border-radius: 50%;
   z-index: 1;
   pointer-events: none;
