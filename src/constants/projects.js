@@ -1,4 +1,4 @@
-// Work page list, newest first. Each project links to its GitHub repository
+// Projects page list, newest first. Each project links to its GitHub repository
 const projects = [
   { year: "2026-10", name: "Gainly", type: "mobile app", repo: "https://github.com/Marcobc-exe/Gainly-app" },
   { year: "2026-03", name: "Lockerpass", type: "web app", repo: "https://github.com/Marcobc-exe/PasswordManagerApp" },

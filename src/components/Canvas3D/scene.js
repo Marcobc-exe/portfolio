@@ -23,8 +23,14 @@ export const CAMERA_POSES = {
     landscape: { azimuth: 0, elevation: 0, distance: 17, yaw: 30, pitch: 8 },
     portrait: { azimuth: -10, elevation: 26, distance: 18, yaw: 14, pitch: 6 },
   },
-  // Around to the night side: the whole globe on the left, city lights, the sun rising over its edge
+  // Like about (globe at the bottom, content above it) but lower, since the timeline is taller,
+  // and seen from another side
   work: {
+    landscape: { azimuth: 25, elevation: 30, distance: 19, yaw: 0, pitch: 25 },
+    portrait: { azimuth: 20, elevation: 45, distance: 38, yaw: 0, pitch: 14 },
+  },
+  // Around to the night side: the whole globe on the left, city lights, the sun rising over its edge
+  projects: {
     landscape: { azimuth: -20, elevation: 8, distance: 19, yaw: 14, pitch: 8 },
     portrait: { azimuth: -48, elevation: 34, distance: 14, yaw: 12, pitch: 28 },
   },

@@ -8,7 +8,7 @@ import Starfield from "./Starfield/Starfield";
 import Sun from "./Sun/Sun";
 import { BASE_FOV } from "./scene";
 
-/* page: "home" | "work" | "about" | "contact"; each one has its own camera pose (see scene.js) */
+/* page: "home" | "work" | "projects" | "about" | "contact"; each one has its own camera pose (see scene.js) */
 const Canvas3D = ({ page }) => {
   return (
     <Canvas className="canvas" camera={{ fov: BASE_FOV, near: 0.1, far: 2000 }}>

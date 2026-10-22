@@ -1,142 +1,516 @@
-/* Desktop: vertically centered on the right side of the frame */
-.containerWorkPage {
-  align-self: center;
-  justify-self: end;
+/* Desktop: horizontally centered near the top of the frame, above the planet (same spot as About) */
+.workPage {
+  align-self: start;
+  justify-self: center;
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  align-items: flex-start;
+  gap: 22px;
+  box-sizing: border-box;
+  width: min(980px, 100%);
   max-height: 100%;
-  margin-right: 104px;
-  gap: 20px;
+  margin: clamp(24px, 6vh, 64px) 0 0;
+  padding: 0 16px 16px;
   overflow-y: auto;
+  color: #e9ebee;
+  /* Keeps every line readable where the planet's glow sits behind the text */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 14px rgba(0, 0, 0, 0.65);
 }
 
-.containerWorkPage::-webkit-scrollbar {
-  width: 5px;
+.workPage p,
+.workPage h1,
+.workPage h2,
+.workPage ul {
+  margin: 0;
 }
 
-/* The scrollbar only shows while the pointer is over the list (its space stays reserved) */
-.containerWorkPage::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  border-radius: 40px;
-}
-
-.containerWorkPage:hover::-webkit-scrollbar-thumb {
-  background-color: rgb(119, 119, 119);
-}
-
-.containerWorkPage::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-/* Firefox (setting scrollbar-color would disable the rules above in Chrome) */
-@supports not selector(::-webkit-scrollbar) {
-  .containerWorkPage {
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  }
-
-  .containerWorkPage:hover {
-    scrollbar-color: rgb(119, 119, 119) transparent;
-  }
-}
-
-.containerLkProyect {
-  height: 60px;
-  display: flex;
-  gap: 12px;
-}
-
-.containerLkProyect:hover {
-  background: linear-gradient(to right, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9, #d9d9d9);
-  background-size: 100% 0.1em, 0 0.2em;
-  background-position: 0% 100%;
-  background-repeat: no-repeat;
-  transition: backgroundSize 300ms;
-  animation-name: lineThrough;
-  animation-duration: .2s;
-}
-
-.txtYearProyect {
-  color: #fff;
-  font-size: 16px;
-  height: 22px;
-  align-self: flex-end;
-  letter-spacing: .6px;
-  white-space: nowrap;
+/* Section pill (subtle glass, like the About badge) */
+.workBadge {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-family: Neue Montreal Book;
-}
-
-.txtNameProyect {
-  color: #b4b4b4;
-  font-size: 38px;
-  height: 48px;
-  align-self: flex-end;
-  letter-spacing: 1px;
-  white-space: nowrap;
-  font-family: Neue Montreal Thin;
-}
-
-.txtTypeProyect {
-  color: #8f949b;
   font-size: 13px;
-  height: 20px;
-  align-self: flex-end;
-  letter-spacing: .6px;
-  white-space: nowrap;
+  letter-spacing: 0.4px;
+  color: #d9dce1;
+}
+
+.workBadgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+
+.workBadgeSeparator {
+  color: rgba(217, 220, 225, 0.5);
+}
+
+.workTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: normal;
+}
+
+.workTitleMain {
+  font-family: Neue Montreal Medium;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.15;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+}
+
+.workTitleSub {
+  font-family: Neue Montreal Thin;
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.35;
+  color: #c9cdd3;
+}
+
+/* Timeline: one equal column per stop; the line runs from the first dot to the last */
+.workTrack {
+  position: relative;
+  width: 100%;
+}
+
+.workTimeline {
+  --dot: 11px;
+  --line-top: calc(6px + var(--dot) / 2);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(112px, 1fr));
+}
+
+.workTimeline::before,
+.workTimeline::after {
+  content: "";
+  position: absolute;
+  top: var(--line-top);
+  left: calc(50% / var(--count));
+  height: 1px;
+}
+
+.workTimeline::before {
+  right: calc(50% / var(--count));
+  background-color: rgba(217, 217, 217, 0.25);
+}
+
+/* Lit segment up to the selected stop */
+.workTimeline::after {
+  width: calc((100% - 100% / var(--count)) * var(--progress));
+  background-color: #d9d9d9;
+  box-shadow: 0 0 8px rgba(217, 217, 217, 0.5);
+  transition: width 0.4s ease;
+}
+
+.workNode {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+}
+
+.workNode:focus-visible {
+  outline: 1px solid #d9d9d9;
+  outline-offset: 2px;
+}
+
+.workNodeDot {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: var(--dot);
+  height: var(--dot);
+  margin-bottom: 4px;
+  border: 1px solid #d9d9d9;
+  border-radius: 50%;
+  background-color: #0c0c0c;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.workNode.past .workNodeDot {
+  background-color: rgba(217, 217, 217, 0.55);
+}
+
+.workNode:hover .workNodeDot {
+  box-shadow: 0 0 0 4px rgba(217, 217, 217, 0.12);
+}
+
+.workNode.active .workNodeDot {
+  background-color: #d9d9d9;
+  box-shadow: 0 0 0 4px rgba(217, 217, 217, 0.15), 0 0 14px rgba(217, 217, 217, 0.7);
+}
+
+/* "Now": the green availability dot, pulsing */
+.workNode.current .workNodeDot {
+  border-color: #3ecf8e;
+  animation: workPulse 2.4s ease-out infinite;
+}
+
+.workNode.current.active .workNodeDot {
+  background-color: #3ecf8e;
+}
+
+@keyframes workPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.6);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 8px rgba(62, 207, 142, 0);
+  }
+}
+
+.workNodeDate {
   font-family: Neue Montreal Book;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+  white-space: nowrap;
 }
 
-@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
-  .containerWorkPage {
-    height: auto;
-    margin-right: 0;
-    padding-right: 12px;
-    gap: 12px;
-    /* The list can sit over the planet's glow on phones */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, .9), 0 0 12px rgba(0, 0, 0, .6);
-  }
+.workNodeLabel {
+  font-family: Neue Montreal Book;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  color: #9a9fa6;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
 
-  .containerLkProyect {
-    height: 40px;
-    gap: 8px;
-  }
+.workNode.active .workNodeLabel,
+.workNode:hover .workNodeLabel {
+  color: #e9ebee;
+}
 
-  .txtYearProyect {
-    font-size: 13px;
-    height: 18px;
-  }
+/* Details of the selected stop: dark, blurred panel so it reads over the planet's glow */
+.workPanel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 22px;
+  border-left: 2px solid rgba(217, 217, 217, 0.7);
+  border-radius: 0 8px 8px 0;
+  background-color: rgba(12, 12, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: workPanelIn 0.35s ease both;
+}
 
-  .txtNameProyect {
-    font-size: 26px;
-    height: 33px;
-  }
-
-  .txtTypeProyect {
-    font-size: 11px;
-    height: 17px;
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .workPanel {
+    background-color: rgba(12, 12, 12, 0.8);
   }
 }
 
-/* Narrow phones (e.g. 320px): "2024-03 Memory Game web app" has to fit on one line */
-@media (max-width: 360px) {
-  .containerLkProyect {
+@keyframes workPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.workPanelHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px 24px;
+}
+
+.workRole {
+  font-family: Neue Montreal Medium;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.workPage .workOrg {
+  margin-top: 4px;
+  font-family: Neue Montreal Book;
+  font-size: 15px;
+  color: #c9cdd3;
+}
+
+.workMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Neue Montreal Book;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: #aeb3ba;
+  white-space: nowrap;
+}
+
+.workTag {
+  padding: 3px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #d9dce1;
+}
+
+.workBullets {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.workBullets li {
+  position: relative;
+  max-width: 78ch;
+  padding-left: 18px;
+  font-family: Neue Montreal Book;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #d4d7dc;
+}
+
+.workBullets li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(217, 217, 217, 0.6);
+}
+
+.workBullets strong {
+  font-family: Neue Montreal Medium;
+  font-weight: normal;
+  color: #ffffff;
+}
+
+/* Stack pills (same look as About) */
+.workStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.workStack li {
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.04);
+  font-family: Neue Montreal Book;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  color: #d9dce1;
+}
+
+.workActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.workButton {
+  padding: 8px 16px;
+  border: 1px solid rgba(217, 217, 217, 0.6);
+  border-radius: 999px;
+  font-family: Neue Montreal Book;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  color: #e9ebee;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.workButton:hover,
+.workButton.primary {
+  background-color: #d9d9d9;
+  color: #0c0c0c;
+  text-shadow: none;
+}
+
+.workButton.primary:hover {
+  background-color: #ffffff;
+}
+
+.workLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: Neue Montreal Book;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  color: #d9d9d9;
+  text-decoration: none;
+}
+
+.workLink:hover {
+  color: #ffffff;
+}
+
+.workButton:focus-visible,
+.workLink:focus-visible {
+  outline: 1px solid #d9d9d9;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workTimeline::after,
+  .workNodeDot,
+  .workNodeLabel {
+    transition: none;
+  }
+
+  .workNode.current .workNodeDot,
+  .workPanel {
+    animation: none;
+  }
+}
+
+/* Mid-size landscape screens (e.g. 1024 x 768): keep clear of the Navbar column in the bottom-left corner */
+@media (min-width: 601px) and (max-width: 1260px) and (orientation: landscape) {
+  .workPage {
+    width: min(980px, calc(100% - 2 * 120px));
+  }
+}
+
+/* Short desktop windows (e.g. a 1366 x 768 laptop with the browser's toolbars): tighter spacing */
+@media (max-height: 760px) {
+  .workPage {
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .workTitle {
     gap: 6px;
   }
 
-  .txtYearProyect {
+  .workTitleMain {
+    font-size: clamp(26px, 2.8vw, 34px);
+  }
+
+  .workTitleSub {
+    font-size: clamp(16px, 1.4vw, 19px);
+  }
+
+  .workPanel {
+    gap: 10px;
+    padding: 12px 18px;
+  }
+
+  .workBullets {
+    gap: 4px;
+  }
+
+  .workBullets li {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+}
+
+/* Phones and short landscape screens: the track scrolls sideways, the whole block scrolls down */
+@media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
+  .workPage {
+    width: 100%;
+    gap: 16px;
+    margin-top: 8px;
+    padding: 0 0 24px;
+    /* Soft fade at the bottom edge when the block scrolls, instead of a hard cut above the Navbar */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
+  }
+
+  .workBadge {
     font-size: 12px;
-    height: 17px;
+    padding: 6px 12px;
   }
 
-  .txtNameProyect {
-    font-size: 22px;
-    height: 28px;
-    letter-spacing: .5px;
+  .workTitleMain {
+    font-size: 26px;
   }
 
-  .txtTypeProyect {
-    font-size: 10px;
-    height: 15px;
+  .workTitleSub {
+    font-size: 16px;
+  }
+
+  .workTrack {
+    flex-shrink: 0;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    /* Faded edges hint that the track continues */
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  }
+
+  .workTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .workTimeline {
+    width: max(100%, calc(var(--count) * 112px));
+  }
+
+  .workNode {
+    scroll-snap-align: center;
+  }
+
+  .workNodeDate,
+  .workNodeLabel {
+    font-size: 12px;
+  }
+
+  .workPanel {
+    padding: 14px 16px;
+  }
+
+  .workRole {
+    font-size: 19px;
+  }
+
+  .workOrg {
+    font-size: 14px;
+  }
+
+  .workMeta {
+    flex-wrap: wrap;
+    white-space: normal;
+    font-size: 13px;
+  }
+
+  .workBullets li {
+    font-size: 14px;
+  }
+
+  .workStack li {
+    font-size: 12px;
   }
 }

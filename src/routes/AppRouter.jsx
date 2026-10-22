@@ -6,6 +6,7 @@ import Layout from "../components/Layout/Layout";
 import ContactPage from "../Pages/Contact/ContactPage";
 import AboutPage from "../Pages/About/AboutPage";
 import WorkPage from "../Pages/Work/WorkPage";
+import ProjectsPage from "../Pages/Projects/ProjectsPage";
 
 // Matches the .layoutContent.leaving transition in Layout/styles/index.css
 const LEAVE_MS = 250;
@@ -55,6 +56,7 @@ const AppRouter = () => {
       <Routes location={displayedLocation}>
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<WorkPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

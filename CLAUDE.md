@@ -21,11 +21,11 @@ There are no tests configured.
 ### Key directories
 
 - `src/routes/AppRouter.jsx` — all route definitions; unknown paths redirect to `/`
-- `src/Pages/` — one directory per route (`Home`, `Work`, `About`, `Contact`)
+- `src/Pages/` — one directory per route (`Home`, `Work`, `Projects`, `About`, `Contact`)
 - `src/components/` — shared components: `Canvas3D` (Three.js globe), `CursorPro` (custom cursor), `Navbar`, `Layout`
 - `src/context/CursorContext.jsx` — the only global state; tracks cursor hover events and derives the selected link from the current route
 - `src/hooks/` — `useCursorEvents.js` wraps `CursorContext`
-- `src/constants/` — menu paths and external URLs
+- `src/constants/` — menu paths, external URLs, and page content as data: `projects.js` (Projects list, GitHub links) and `experience.js` (Work timeline, from the CV; `**text**` marks a highlighted metric)
 
 ### Layout pattern
 
@@ -35,6 +35,8 @@ Every page renders inside `Layout`, which mounts the `Navbar`, the `Canvas3D` gl
 
 Page transitions: `AppRouter` renders `<Routes location={displayedLocation}>` and passes a `transitionPhase` (`idle` | `leaving` | `entering`) to `Layout`, which puts it as a class on `<main>`. On navigation the old page fades out (250 ms), then the new one is rendered and fades in while the camera finishes its move (CSS in `Layout/styles/index.css`). With `prefers-reduced-motion` the switch is immediate. `Layout` passes the current page (`selected` from `CursorContext`, i.e. the real route) to `Canvas3D`, so the camera starts moving right away.
 
+The Work page (`Pages/Work/`) is a horizontal timeline built as an accessible tabs widget (`role="tablist"`, arrow keys / Home / End): each stop in `experience.js` opens a detail panel below it. On phones the track scrolls sideways and the selected stop is centered by scrolling only the track (not `scrollIntoView`, which could also scroll the overflow-hidden frame). The Navbar has five links, so the phone row tightens its gap (and font at ≤360px) to fit 320px screens.
+
 ### Styling
 
 Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components v6 for custom elements, and per-component `index.css` files. Layout/positioning styles belong in the CSS files (inline `style={}` objects can't use media queries). Dark theme with `#0C0C0C` background. Custom font (PP Neue Montreal) loaded via `@font-face` in `src/font/`.
@@ -43,7 +45,7 @@ Mixed approach: MUI v5 components (`Box`, `Typography`, etc.), styled-components
 
 `Canvas3D` imports `.glsl` files via `vite-plugin-string`. Changes to shaders require no extra tooling — Vite handles the import.
 
-The camera is a perspective camera driven by `Canvas3D/CameraRig/CameraRig.jsx`. Everything about the scene layout lives in `Canvas3D/scene.js`: the earth at the origin (`EARTH_RADIUS`), the light direction `SUN_DIR` (world space, deliberately independent from where the sun is drawn so the home view keeps its half-lit globe), `SUN_POSITION`, and `CAMERA_POSES` — one fixed pose per page (`home`, `work`, `about`, `contact`), each with a `landscape` and a `portrait` (aspect < 1) variant. A pose is `{ azimuth, elevation, distance }` (orbit around the earth) + `{ yaw, pitch }` (turn away from looking straight at it) + optional `zoom`; the earth's place on screen depends only on distance / yaw / pitch / zoom, while azimuth / elevation pick which side of it faces the camera and where the sun lands. Transitions ease (1.6 s, ease-in-out) between those numbers, so the camera always travels on an arc; a new page mid-move starts from the current pose; reduced motion jumps. `getFov` widens the vertical FOV on narrower screens (35°–55°) to keep the desktop's horizontal framing. All objects are in world space, so shaders use world normals + `cameraPosition` (not view-space tricks).
+The camera is a perspective camera driven by `Canvas3D/CameraRig/CameraRig.jsx`. Everything about the scene layout lives in `Canvas3D/scene.js`: the earth at the origin (`EARTH_RADIUS`), the light direction `SUN_DIR` (world space, deliberately independent from where the sun is drawn so the home view keeps its half-lit globe), `SUN_POSITION`, and `CAMERA_POSES` — one fixed pose per page (`home`, `work`, `projects`, `about`, `contact`), each with a `landscape` and a `portrait` (aspect < 1) variant. A pose is `{ azimuth, elevation, distance }` (orbit around the earth) + `{ yaw, pitch }` (turn away from looking straight at it) + optional `zoom`; the earth's place on screen depends only on distance / yaw / pitch / zoom, while azimuth / elevation pick which side of it faces the camera and where the sun lands. Transitions ease (1.6 s, ease-in-out) between those numbers, so the camera always travels on an arc; a new page mid-move starts from the current pose; reduced motion jumps. `getFov` widens the vertical FOV on narrower screens (35°–55°) to keep the desktop's horizontal framing. All objects are in world space, so shaders use world normals + `cameraPosition` (not view-space tricks).
 
 The sun is its own component (`Canvas3D/Sun/Sun.jsx`) at `SUN_POSITION`: a plasma core (`sunCore*.glsl`) plus an additive corona plane with rays (`sunCorona*.glsl`) that turns to face the camera every frame; it stops animating with `prefers-reduced-motion`.
 
