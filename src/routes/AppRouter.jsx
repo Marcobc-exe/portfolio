@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 import HomePage from "../Pages/Home/HomePage";
@@ -9,6 +9,9 @@ import WorkPage from "../Pages/Work/WorkPage";
 
 // Matches the .layoutContent.leaving transition in Layout/styles/index.css
 const LEAVE_MS = 250;
+
+// Spaceship inspection view (#/hangar), only with `npm start`: production builds drop it entirely
+const HangarPage = import.meta.env.DEV ? lazy(() => import("../Pages/Hangar/HangarPage")) : null;
 
 /*
   Page transitions: the old page fades out while the camera starts moving (phase "leaving"),
@@ -38,6 +41,14 @@ const AppRouter = () => {
 
     return () => clearTimeout(timeoutId);
   }, [location, displayedLocation.pathname, reduceMotion]);
+
+  if (HangarPage && location.pathname === "/hangar") {
+    return (
+      <Suspense fallback={null}>
+        <HangarPage />
+      </Suspense>
+    );
+  }
 
   return (
     <Layout transitionPhase={phase}>

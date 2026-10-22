@@ -63,6 +63,7 @@
   height: 22px;
   align-self: flex-end;
   letter-spacing: .6px;
+  white-space: nowrap;
   font-family: Neue Montreal Book;
 }
 
@@ -72,7 +73,18 @@
   height: 48px;
   align-self: flex-end;
   letter-spacing: 1px;
+  white-space: nowrap;
   font-family: Neue Montreal Thin;
+}
+
+.txtTypeProyect {
+  color: #8f949b;
+  font-size: 13px;
+  height: 20px;
+  align-self: flex-end;
+  letter-spacing: .6px;
+  white-space: nowrap;
+  font-family: Neue Montreal Book;
 }
 
 @media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
@@ -81,6 +93,8 @@
     margin-right: 0;
     padding-right: 12px;
     gap: 12px;
+    /* The list can sit over the planet's glow on phones */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .9), 0 0 12px rgba(0, 0, 0, .6);
   }
 
   .containerLkProyect {
@@ -96,5 +110,33 @@
   .txtNameProyect {
     font-size: 26px;
     height: 33px;
+  }
+
+  .txtTypeProyect {
+    font-size: 11px;
+    height: 17px;
+  }
+}
+
+/* Narrow phones (e.g. 320px): "2024-03 Memory Game web app" has to fit on one line */
+@media (max-width: 360px) {
+  .containerLkProyect {
+    gap: 6px;
+  }
+
+  .txtYearProyect {
+    font-size: 12px;
+    height: 17px;
+  }
+
+  .txtNameProyect {
+    font-size: 22px;
+    height: 28px;
+    letter-spacing: .5px;
+  }
+
+  .txtTypeProyect {
+    font-size: 10px;
+    height: 15px;
   }
 }
