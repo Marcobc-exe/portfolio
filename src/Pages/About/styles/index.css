@@ -1,72 +1,238 @@
-/* Desktop: horizontally centered near the top of the frame */
+/* Desktop: horizontally centered near the top of the frame, above the planet */
 .containerAbout {
   align-self: start;
   justify-self: center;
   display: flex;
   flex-direction: column;
-  width: min(700px, 100%);
-  min-height: 300px;
-  margin-top: 124px;
+  align-items: flex-start;
+  gap: 20px;
+  box-sizing: border-box;
+  width: min(760px, 100%);
+  max-height: 100%;
+  margin: clamp(24px, 6vh, 64px) 0 0;
+  padding: 0 16px 16px;
+  overflow-y: auto;
+  color: #e9ebee;
+  /* Keeps every line readable where the planet's glow sits behind the text */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 14px rgba(0, 0, 0, 0.65);
 }
 
-.containerTitleAbout {
-  width: 90%;
-  margin: 0 auto;
-  font-size: 42px;
+.containerAbout p,
+.containerAbout h1,
+.containerAbout ul,
+.containerAbout figure,
+.containerAbout blockquote {
+  margin: 0;
 }
 
-.containerBodyAbout {
-  flex: 1;
-  width: 90%;
-  margin: 0 auto;
+/* Status pill (subtle glass) */
+.aboutBadge {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: Neue Montreal Book;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  color: #d9dce1;
+}
+
+.aboutBadgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #3ecf8e;
+  box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.6);
+  animation: aboutPulse 2.4s ease-out infinite;
+}
+
+.aboutBadgeSeparator {
+  margin-right: 8px;
+  color: rgba(217, 220, 225, 0.5);
+}
+
+@keyframes aboutPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.6);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px rgba(62, 207, 142, 0);
+  }
+}
+
+/* Headline: name + role, then the focus in a lighter weight */
+.aboutTitle {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  gap: 10px;
+  font-weight: normal;
+}
+
+.aboutTitleMain {
+  font-family: Neue Montreal Medium;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.15;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+}
+
+.aboutTitleSub {
   font-family: Neue Montreal Thin;
-  font-size: 18px;
-  letter-spacing: .5px;
-  padding-top: 20px;
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.35;
+  color: #c9cdd3;
 }
 
-.box-personal-desc {
+/* Value proposition */
+.aboutLead {
+  max-width: 68ch;
+  font-family: Neue Montreal Book;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #d4d7dc;
+}
+
+.aboutLead strong {
+  font-family: Neue Montreal Medium;
+  font-weight: normal;
+  color: #ffffff;
+}
+
+/* Tech stack pills */
+.aboutStack {
   display: flex;
-  font-weight: bold;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.aboutStack li {
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.04);
+  font-family: Neue Montreal Book;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  color: #d9dce1;
+}
+
+/* Discipline quote: its own dark, blurred panel so it stays readable over the planet's glow */
+.aboutQuote {
+  display: flex;
   flex-direction: column;
+  gap: 8px;
+  max-width: 68ch;
+  padding: 14px 18px;
+  border-left: 2px solid rgba(217, 217, 217, 0.7);
+  border-radius: 0 8px 8px 0;
+  background-color: rgba(12, 12, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 
-.txtAuthor {
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .aboutQuote {
+    background-color: rgba(12, 12, 12, 0.8);
+  }
+}
+
+.aboutQuoteContext {
+  font-family: Neue Montreal Book;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #aeb3ba;
+}
+
+.aboutQuoteText {
   font-family: Neue Montreal Italic;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #ffffff;
 }
 
-/* Short desktop windows: keep clear of the Navbar */
-@media (max-height: 640px) {
+@media (prefers-reduced-motion: reduce) {
+  .aboutBadgeDot {
+    animation: none;
+  }
+}
+
+/* Short desktop windows (e.g. a 1366 x 768 laptop with the browser's toolbars): tighter spacing */
+@media (max-height: 760px) {
   .containerAbout {
-    margin-top: 48px;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .aboutTitle {
+    gap: 6px;
+  }
+
+  .aboutTitleMain {
+    font-size: clamp(28px, 3vw, 36px);
+  }
+
+  .aboutTitleSub {
+    font-size: clamp(17px, 1.5vw, 20px);
+  }
+
+  .aboutLead {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .aboutQuote {
+    padding: 10px 16px;
   }
 }
 
 @media (max-width: 600px), (max-height: 500px) and (orientation: landscape) {
   .containerAbout {
     width: 100%;
-    min-height: 0;
-    max-height: 100%;
+    gap: 16px;
     margin-top: 8px;
-    overflow-y: auto;
+    padding: 0 0 24px;
+    /* Soft fade at the bottom edge when the block scrolls, instead of a hard cut above the Navbar */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
   }
 
-  .containerTitleAbout,
-  .containerBodyAbout {
-    width: 100%;
+  .aboutBadge {
+    font-size: 12px;
+    padding: 6px 12px;
   }
 
-  .containerTitleAbout {
+  .aboutTitleMain {
     font-size: 28px;
   }
 
-  .containerBodyAbout {
-    flex: none;
-    gap: 16px;
-    padding-top: 16px;
-    font-size: 16px;
+  .aboutTitleSub {
+    font-size: 17px;
+  }
+
+  .aboutLead {
+    font-size: 15px;
+  }
+
+  .aboutStack li {
+    font-size: 12px;
+  }
+
+  .aboutQuoteContext {
+    font-size: 13px;
+  }
+
+  .aboutQuoteText {
+    font-size: 15px;
   }
 }
